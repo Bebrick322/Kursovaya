@@ -4,257 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Торговые автоматы</title>
-    <link rel="icon" type="image/png" href="5853892.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Шапка сайта -->
     <header>
         <div class="header-container">
             <a href="#" class="logo">
                 <span class="logo-circle">
-                    <img src="5853892.png" alt="Логотип" class="logo-img">
+                    <img src="images/logo.png" alt="Логотип" class="logo-img">
                 </span>
                 <span class="logo-text">VendingWorld</span>
             </a>
+            
             <nav>
-                <ul>
-                    <li><a href="#history">История</a></li>
-                    <li><a href="#advantages">Преимущества</a></li>
-                    <li><a href="#business">Структура бизнеса</a></li>
-                    <li><a href="#contacts">Контакты</a></li>
+                <input type="checkbox" id="menu-check" class="menu-check">
+                <label for="menu-check" class="menu-toggle" aria-label="Меню">
+                    <span class="burger-icon"></span>
+                </label>
+                <ul class="nav-list">
+                    <li><a href="index.html">Главная</a></li> 
+                    <li><a href="catalog.html">Каталог автоматов</a></li>
+                    <li><a href="faq.html">Вопросы и Ответы</a></li>
+                    <li><a href="projects.html">Проекты</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <div class="content">
-            <!-- Главная секция -->
-            <section id="main">
-                <h1 id="Topic1">Торговый автомат</h1>
-                <p><strong>Торговый автомат</strong> (сокр. <abbr title="Торговый автомат">Торгомат</abbr>) — устройство, осуществляющее мелкорозничную торговлю товарами и услугами, оплата и выдача которых реализуются с помощью технических приспособлений, <em>не требующих непосредственного участия продавца</em>.</p>
+        <section id="main">
+            <div class="main-content">
+                <h1>Торговые автоматы: Ваш Бизнес в Один Клик</h1>
+                <p>Откройте для себя мир вендинга — инновационного и высокодоходного бизнеса. Мы предлагаем современные решения для автоматизированной торговли, которые работают 24/7.</p>
+                <a href="#form-section" class="btn">Оставить заявку</a>
+            </div>
+            <div class="main-image">
+                <img src="images/avtomats.png" alt="Современные торговые автоматы" class="vending-machine">
+            </div>
+        </section>
+        
+        <section id="form-section">
+                <h2>Обратная связь</h2>
+                <form action="#" method="post">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required placeholder="Ваше имя">
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Ваш вопрос или предложение..."></textarea>
+                    
+                    <div class="radio-group">
+                        <input type="radio" id="buy" name="interest" value="buy" checked>
+                        <label for="buy">Купить автомат</label>
+                        <input type="radio" id="rent" name="interest" value="rent">
+                        <label for="rent">Арендовать место</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">Согласен на обработку данных</label>
+                    </div>
+                    
+                    <input type="submit" value="Отправить">
+                </form>
+        </section>
+        <section id="history" class="clearfix">
+            <h2>История вендинга</h2>
+            <img src="images/old_vending.jpg" alt="Старинный торговый автомат" class="float-right">
+            <p>История торговых автоматов насчитывает тысячелетия. Самое раннее известное упоминание относится к I веку н.э., когда Герон Александрийский изобрел устройство для выдачи святой воды в египетских храмах. Современная эра вендинга началась в конце XIX века с появлением автоматов по продаже открыток и жевательной резинки в Лондоне и Нью-Йорке.</p>
+            <p>Сегодня вендинг — это высокотехнологичная индустрия, предлагающая не только напитки и закуски, но и горячую пищу, электронику и даже книги. Автоматы стали неотъемлемой частью городской инфраструктуры, обеспечивая быстрый и удобный доступ к товарам.</p>
+        </section>
 
+        
+        <section id="advantages">
+            <h2>Наши преимущества</h2>
+            <ul>
+                <li><span class="icon">🚀</span> Круглосуточная работа без персонала.</li>
+                <li><span class="icon">💰</span> Высокая маржинальность и быстрая окупаемость.</li>
+                <li><span class="icon">📱</span> Дистанционный мониторинг и управление.</li>
+                <li><span class="icon">🛠️</span> Простое обслуживание и низкие эксплуатационные расходы.</li>
+                <li><span class="icon">🌍</span> Экологичность и минимальный след.</li>
+            </ul>
+        </section>
+        <section id="business">
+            <h2>Структура бизнеса</h2>
+            <ol>
+                <li><span class="step-num">1.</span> Выбор места установки (офисы, ТЦ, вокзалы).</li>
+                <li><span class="step-num">2.</span> Покупка или аренда оборудования.</li>
+                <li><span class="step-num">3.</span> Загрузка товаров и настройка цен.</li>
+                <li><span class="step-num">4.</span> Дистанционный мониторинг продаж.</li>
+                <li><span class="step-num">5.</span> Регулярное обслуживание и пополнение.</li>
+            </ol>
+        </section>
+    
+        <section id="map-section">
+            <h2>Наши точки на карте</h2>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=..." 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+        </section>
+        <section id="video-section">
+            <h2>Как работают торговые автоматы?</h2>
+            <iframe 
+                width="100%" 
+                height="315" 
+                src="https://www.youtube.com/watch?v=dQw4w9WgXcQ" 
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </section>
+        <section id="gallery">
+            <h2>Галерея торговых автоматов</h2>
+            <div class="image-gallery">
                 <figure>
-                    <a href="https://ru.wikipedia.org/wiki/Торговый_автомат" target="_blank">
-                        <img src="kak-razmestit-torgovyj-avtomat.png" alt="Торговые автоматы">
-                    </a>
-                    <figcaption>Торговые автоматы (нажмите на изображение для перехода на Википедию)</figcaption>
+                    <img src="gal-1.jpg" alt="Современный снековый автомат">
+                    <figcaption>Снековый автомат</figcaption>
                 </figure>
-            </section>
-
-            <!-- Секция истории -->
-            <section id="history" class="clearfix">
-                <h2 id="Topic2">История торговых автоматов</h2>
-
-                <div class="float-left">I век н.э.</div>
-                <p>Первый торговый автомат был создан <strong>Героном Александрийским</strong> ещё в I веке н. э. Автомат продавал священную воду в египетских храмах.</p>
-
-                <div class="float-right">NFC</div>
-                <p>Современные торговые автоматы используют различные технологии приёма платежей: от монет и банкнот до <u>бесконтактных платежей</u> с помощью NFC.</p>
-
                 <figure>
-                    <img src="geron.png" alt="Герон Александрийский" width="300" height="390">
-                    <figcaption>Фото Герона Александрийского</figcaption>
+                    <img src="gal-2.jpg" alt="Кофейный автомат">
+                    <figcaption>Кофейный аппарат</figcaption>
                 </figure>
-            </section>
-
-            <!-- Секция преимуществ -->
-            <section id="advantages">
-                <h2>Преимущества торговых автоматов</h2>
-                <p><b>Круглосуточная работа</b> без перерывов и выходных<br>
-                <i>Экономия на персонале</i> — не требуется кассир или продавец<br>
-                <strong>Высокая гигиеничность</strong> — минимум контактов с товаром</p>
-            </section>
-
-            <!-- Секция бизнеса -->
-            <section id="business">
-                <h2>Структура бизнеса торговых автоматов</h2>
-                <h3>Типы торговых автоматов</h3>
-                <ol type="I">
-                    <li>Выбор типа торгового автомата
-                        <ul type="circle">
-                            <li>Напиточные автоматы</li>
-                            <li>Снековые автоматы</li>
-                            <li>Кофейные аппараты</li>
-                            <li>Автоматы с горячей едой</li>
-                        </ul>
-                    </li>
-                </ol>
-            </section>
-
-            <!-- Секция с картой -->
-            <section>
-                <h2>Интерактивная карта торгового автомата</h2>
-                <div class="img-blue-bg">
-                    <img src="avtomat.jpg" alt="Современный торговый автомат" usemap="#vendingmap" width="300" height="500">
-                </div>
-                <p><small>Нажмите на разные области автомата для получения информации</small></p>
-
-                <map name="vendingmap">
-                    <area shape="rect" coords="216,37,257,67" href="https://ru.wikipedia.org/wiki/Сенсорный_экран" alt="Дисплей" target="_blank">
-                    <area shape="circle" coords="231,250,50" href="https://ru.wikipedia.org/wiki/Монетоприёмник" alt="Монетоприемник" target="_blank">
-                    <area shape="polygon" coords="58,300,66,350,192,388,195,300" href="https://ru.wikipedia.org/wiki/Лоток" alt="Лоток выдачи" target="_blank">
-                </map>
-            </section>
-        </div>
-
-        <!-- Боковая панель -->
-        <aside>
-            <h3>Полезная информация</h3>
-            <div class="sidebar-widget">
-                <h4>Быстрые ссылки</h4>
-                <ul>
-                    <li><a href="#Topic1">К началу</a></li>
-                    <li><a href="#Topic2">История</a></li>
-                    <li><a href="#business">Структура бизнеса</a></li>
-                </ul>
+                <figure>
+                    <img src="gal-3.jpg" alt="Автомат по продаже пиццы">
+                    <figcaption>Автомат для пиццы</figcaption>
+                </figure>
+                <figure>
+                    <img src="gal-4.jpg" alt="Автомат с игрушками">
+                    <figcaption>Детские игрушки</figcaption>
+                </figure>
             </div>
+        </section>
 
-            <div class="sidebar-widget">
-                <h4>Внешние ресурсы</h4>
-                <ul>
-                    <li><a href="https://www.youtube.com/" target="_blank">YouTube</a></li>
-                    <li><a href="https://www.google.ru/" target="_blank">Google</a></li>
-                    <li><a href="https://ru.wikipedia.org" target="_blank">Википедия</a></li>
-                </ul>
-            </div>
 
-            <div class="sidebar-widget">
-                <h4>Научный подход</h4>
-                <p>Формула прибыли: Прибыль = Цена<sup>2</sup> × Объём<sub>мес</sub> - Издержки</p>
-            </div>
-
-            <div class="sidebar-widget">
-                <h4>Контакты</h4>
-                <p><a href="tel:89383133792">8-938-313-37-92</a></p>
-                <p><a href="mailto:0btbowxdrfxu@mail.ru">Написать письмо</a></p>
-            </div>
-        </aside>
-
-        <!-- Форма обратной связи -->
-<section id="form-section">
-    <h2>Форма обратной связи</h2>
-
-    <form action="#" method="post" class="styled-form">
-
-        <fieldset>
-            <legend>Личные данные</legend>
-
-            <label for="full-name">Имя и фамилия:</label>
-            <input type="text" id="full-name" name="full_name" placeholder="Иван Иванов" required minlength="2" maxlength="50">
-
-            <label for="phone">Телефон:</label>
-            <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" pattern="[\+]?[78][\s\-]?\(?[0-9]{3}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}" required>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="example@mail.ru" required>
-
-            <label for="password">Пароль:</label>
-            <input type="password" id="password" name="password" placeholder="••••••••" minlength="6" required>
-        </fieldset>
-
-        <fieldset>
-            <legend>Дополнительно</legend>
-
-            <label for="birth-date">Дата и время обращения:</label>
-            <input type="datetime-local" id="birth-date" name="datetime" min="2020-01-01T00:00" max="2030-12-31T23:59" required>
-
-            <label for="resume">Загрузите резюме (PDF):</label>
-            <input type="file" id="resume" name="resume" accept=".pdf" required>
-
-            <label>
-                <input type="checkbox" name="agree" value="yes" checked required>
-                Согласен на обработку персональных данных
-            </label>
-
-            <p>Выберите тип обращения:</p>
-            <label><input type="radio" name="appeal_type" value="complaint" required> Жалоба</label>
-            <label><input type="radio" name="appeal_type" value="suggestion"> Предложение</label>
-            <label><input type="radio" name="appeal_type" value="question"> Вопрос</label>
-        </fieldset>
-
-        <fieldset>
-            <legend>Дополнительные навыки</legend>
-
-            <label for="skills">Навыки (через запятую):</label>
-            <textarea id="skills" name="skills" rows="4" cols="50" minlength="10" maxlength="300" placeholder="Например: HTML, CSS, JavaScript..." required></textarea>
-
-            <label for="country">Страна проживания:</label>
-            <select id="country" name="country" size="4" multiple required>
-                <option value="ru">Россия</option>
-                <option value="by">Беларусь</option>
-                <option value="kz">Казахстан</option>
-                <option value="ua">Украина</option>
-                <option value="other">Другая</option>
-            </select>
-        </fieldset>
-
-        <div class="form-buttons">
-            <button type="submit">Отправить</button>
-            <button type="reset">Очистить</button>
-            <input type="submit" value="Отправить (input)">
-        </div>
-    </form>
-</section>
-
-<!-- Карта Google Maps -->
-<section id="map-section">
-    <h2>Наше местоположение</h2>
-    <iframe 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2249.243235358989!2d37.61763381593253!3d55.75124188053839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5d5c8c8c8d%3A0x5e4b5c8c8c8c8c8c!2z0JzQvtGB0LrQstCwLCAxLCDQktCw0L3QsNC5INCg0L7RgdC60LLQsCwg0JHQvtC70YzRiNCw0Y8g0L7QsdC70LDRgdGC0Yw!5e0!3m2!1sru!2sru!4v1712345678901!5m2!1sru!2sru" 
-        width="100%" 
-        height="300" 
-        style="border:0;" 
-        allowfullscreen="" 
-        loading="lazy" 
-        referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-</section>
-
-<!-- Видео с YouTube -->
-<section id="video-section">
-    <h2>Как работают торговые автоматы?</h2>
-    <iframe 
-        width="100%" 
-        height="315" 
-        src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-        title="YouTube video player" 
-        frameborder="0" 
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
-</section>
+    
     </main>
 
-    <!-- Подвал -->
     <footer>
         <div class="footer-container">
             <div class="footer-section">
                 <h4>О компании</h4>
                 <p>VendingWorld — ваш надёжный партнёр в мире торговых автоматов.</p>
             </div>
+            
             <div class="footer-section">
                 <h4 id="contacts">Контакты</h4>
                 <address>
                     <p>Email: <a href="mailto:0btbowxdrfxu@mail.ru">0btbowxdrfxu@mail.ru</a></p>
-                    <p>Телефон: <a href="tel:89383133792">8-938-313-37-92</a></p>
+                    <p>Телефон: <a href="tel:88005553535">88005553535</a></p>
                     <p>Адрес: г. Москва, ул. Торговая, д. 1</p>
                 </address>
             </div>
+            
             <div class="footer-section">
                 <h4>Разработчик</h4>
                 <address>
                     <p><strong>Ресулов Эльдар Рашидович</strong></p>
                 </address>
             </div>
-            <div class="copyright">
-                <p>&copy; 2025 VendingWorld</p>
+            
             </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
 
