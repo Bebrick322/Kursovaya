@@ -48,38 +48,13 @@
             </div>
         </section>
         
-        <section id="form-section">
-                <h2>Обратная связь</h2>
-                <form action="#" method="post">
-                    <label for="name">Имя:</label>
-                    <input type="text" id="name" name="name" required placeholder="Ваше имя">
-                    
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="example@mail.ru">
-                    
-                    <label for="message">Сообщение:</label>
-                    <textarea id="message" name="message" rows="4" required placeholder="Ваш вопрос или предложение..."></textarea>
-                    
-                    <div class="radio-group">
-                        <input type="radio" id="buy" name="interest" value="buy" checked>
-                        <label for="buy">Купить автомат</label>
-                        <input type="radio" id="rent" name="interest" value="rent">
-                        <label for="rent">Арендовать место</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="agreement" name="agreement" required>
-                        <label for="agreement">Согласен на обработку данных</label>
-                    </div>
-                    
-                    <input type="submit" value="Отправить">
-                </form>
-        </section>
         <section id="history" class="clearfix">
             <h2>История вендинга</h2>
             <img src="images/old_vending.jpg" alt="Старинный торговый автомат" class="float-right">
             <p>История торговых автоматов насчитывает тысячелетия. Самое раннее известное упоминание относится к I веку н.э., когда Герон Александрийский изобрел устройство для выдачи святой воды в египетских храмах. Современная эра вендинга началась в конце XIX века с появлением автоматов по продаже открыток и жевательной резинки в Лондоне и Нью-Йорке.</p>
             <p>Сегодня вендинг — это высокотехнологичная индустрия, предлагающая не только напитки и закуски, но и горячую пищу, электронику и даже книги. Автоматы стали неотъемлемой частью городской инфраструктуры, обеспечивая быстрый и удобный доступ к товарам.</p>
         </section>
+
 
         
         <section id="advantages">
@@ -126,30 +101,38 @@
                 allowfullscreen>
             </iframe>
         </section>
-        <section id="gallery">
-            <h2>Галерея торговых автоматов</h2>
-            <div class="image-gallery">
-                <figure>
-                    <img src="gal-1.jpg" alt="Современный снековый автомат">
-                    <figcaption>Снековый автомат</figcaption>
-                </figure>
-                <figure>
-                    <img src="gal-2.jpg" alt="Кофейный автомат">
-                    <figcaption>Кофейный аппарат</figcaption>
-                </figure>
-                <figure>
-                    <img src="gal-3.jpg" alt="Автомат по продаже пиццы">
-                    <figcaption>Автомат для пиццы</figcaption>
-                </figure>
-                <figure>
-                    <img src="gal-4.jpg" alt="Автомат с игрушками">
-                    <figcaption>Детские игрушки</figcaption>
-                </figure>
-            </div>
+        
+        <section id="form-section">
+                <h2>Обратная связь</h2>
+                <form id="contactForm" action="#" method="post">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required placeholder="Ваше имя">
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                    
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message" rows="4" required placeholder="Ваш вопрос или предложение..."></textarea>
+                    
+                    <div class="radio-group">
+                        <input type="radio" id="buy" name="interest" value="buy" checked>
+                        <label for="buy">Купить автомат</label>
+                        <input type="radio" id="rent" name="interest" value="rent">
+                        <label for="rent">Арендовать место</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">Согласен на обработку данных</label>
+                    </div>
+                    
+                    <input type="submit" value="Отправить">
+                </form>
+                
+                <div id="successMessage" style="display: none; text-align: center; color: #66bb6a; font-size: 1.2rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #333;">
+                    Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.
+                </div>
         </section>
 
-
-    
     </main>
 
     <footer>
@@ -175,12 +158,50 @@
                 </address>
             </div>
             
-            </div>
+        </div>
 
         <div class="footer-bottom">
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+
+            // 1. Логика обработки формы
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    // Предотвращаем стандартную отправку формы (чтобы не было перезагрузки страницы)
+                    event.preventDefault(); 
+
+                    // В реальном приложении здесь был бы код для отправки данных на сервер (AJAX)
+
+                    // Скрываем форму и показываем сообщение об успехе
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Опционально: можно использовать setTimeout, чтобы через несколько секунд вернуть форму
+                    // setTimeout(() => {
+                    //     form.style.display = 'grid'; // Если форма использует grid-template-columns
+                    //     successMessage.style.display = 'none';
+                    //     form.reset();
+                    // }, 5000); 
+                });
+            }
+
+            // 2. Логика для автоматического закрытия меню (из предыдущего кода)
+            document.querySelectorAll('.nav-list a').forEach(item => {
+                item.addEventListener('click', () => {
+                    // Проверяем, существует ли чекбокс
+                    const menuCheck = document.getElementById('menu-check');
+                    if (menuCheck) {
+                        menuCheck.checked = false;
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

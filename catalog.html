@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Каталог автоматов - VendingWorld</title>
-    <link rel="icon" type="image/png" href="5853892.png">
+    <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,16 +16,22 @@
         <div class="header-container">
             <a href="index.html" class="logo">
                 <span class="logo-circle">
-                    <img src="5853892.png" alt="Логотип" class="logo-img">
+                    <img src="images/logo.png" alt="Логотип" class="logo-img">
                 </span>
                 <span class="logo-text">VendingWorld</span>
             </a>
+            
             <nav>
-                <ul>
-                    <li><a href="index.html">Главная</a></li>
+                <input type="checkbox" id="menu-check" class="menu-check">
+                <label for="menu-check" class="menu-toggle" aria-label="Меню">
+                    <span class="burger-icon"></span>
+                </label>
+                <ul class="nav-list">
+                    <li><a href="index.html">Главная</a></li> 
                     <li><a href="catalog.html">Каталог автоматов</a></li>
                     <li><a href="faq.html">Вопросы и Ответы</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
+                    <li><a href="projects.html">Проекты</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
                 </ul>
             </nav>
         </div>
@@ -33,51 +39,58 @@
 
     <main>
         <section id="catalog">
-            <h2>Каталог торговых автоматов</h2>
-            <p>Выберите модель, которая лучше всего подходит для вашего бизнеса. Все автоматы оснащены телеметрией и приемом бесконтактных платежей.</p>
+            <h2 class="section-title">Каталог торговых автоматов</h2>
+            <p class="section-description">Выберите модель, которая лучше всего подходит для вашего бизнеса. Все автоматы оснащены телеметрией и приемом бесконтактных платежей.</p>
 
             <div class="product-grid">
 
                 <article class="product-card">
-                    <h3>Coffee Master Pro 500</h3>
-                    <img src="coffee_pro_500.jpg" alt="Кофейный автомат">
-                    <p>Профессиональный кофейный автомат с 12 видами напитков. Идеально для офисов и бизнес-центров.</p>
-                    <p><strong>Цена:</strong> 250 000 руб.</p>
-                    <a href="#buy" class="btn">Подробнее / Заказать</a>
+                    <div class="product-image-wrapper">
+                        <a href="#buy" class="product-link">
+                           <img src="https://art-vending.ru/upload/iblock/314/jl_300_1.png" alt="Кофейный автомат Jetinno JL300" loading="lazy">
+                        </a>
+                    </div>
+                    
+                    <div class="product-info">
+                        <h3>Кофейный автомат Jetinno JL300</h3>
+                        <p class="description">Профессиональный кофейный автомат с 12 видами напитков. Идеально для офисов и бизнес-центров.</p>
+                        <p class="price"><strong>Цена:</strong> 399 000 руб.</p>
+                        <a href="#buy" class="btn btn-primary">Подробнее / Заказать</a>
+                    </div>
                 </article>
 
                 <article class="product-card">
-                    <h3>Snack Vending Max 200</h3>
-                    <img src="snack_max_200.jpg" alt="Снековый автомат">
-                    <p>Большая вместимость и система лифтовой подачи для хрупких товаров. Подходит для ТЦ и вокзалов.</p>
-                    <p><strong>Цена:</strong> 310 000 руб.</p>
-                    <a href="#buy" class="btn">Подробнее / Заказать</a>
+                    <div class="product-image-wrapper">
+                         <a href="#buy" class="product-link">
+                            <img src="https://art-vending.ru/upload/resize_cache/iblock/46e/320_480_1/TCN%20D720-66.jpeg" alt="Снековый автомат TCN D720-6G" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3>Снековый автомат TCN D720-6G</h3>
+                        <p class="description">Вендинговый автомат предназначенный для продажи снековой продукции и напитков.</p>
+                        <p class="price"><strong>Цена:</strong> 254 900 руб.</p>
+                        <a href="#buy" class="btn btn-primary">Подробнее / Заказать</a>
+                    </div>
                 </article>
 
                 <article class="product-card">
-                    <h3>Combi Vendo 770</h3>
-                    <img src="combi_vendo_770.jpg" alt="Комбинированный автомат">
-                    <p>Универсальная модель: напитки, снеки и свежие продукты в одном корпусе. Экономия места.</p>
-                    <p><strong>Цена:</strong> 450 000 руб.</p>
-                    <a href="#buy" class="btn">Подробнее / Заказать</a>
+                    <div class="product-image-wrapper">
+                         <a href="#buy" class="product-link">
+                            <img src="https://art-vending.ru/upload/resize_cache/iblock/60e/320_480_1/%D0%9A%D0%BE%D0%BC%D0%B1%D0%B8%20%D1%82%D0%BE%D1%80%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%20ROSSO%20TOGO%20BAR.jpg" alt="Комбинированный торговый автомат TOUCH TO GO BAR" loading="lazy">
+                        </a>
+                    </div>
+                    <div class="product-info">
+                        <h3>Комбинированный торговый автомат TOUCH TO GO BAR</h3>
+                        <p class="description">2 автомата, объедененные в 1 предлагает: 32 видов горячих напитков из натуральных кофейных зерен, прохладительные напитки, снеки и различную штучную продукцию.</p>
+                        <p class="price"><strong>Цена:</strong> 774 900 руб.</p>
+                        <a href="#buy" class="btn btn-primary">Подробнее / Заказать</a>
+                    </div>
                 </article>
 
             </div>
         </section>
-
-        <section id="map-section">
-            <h2>Наши популярные локации</h2>
-            <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2249.243235358989!2d37.61763381593253!3d55.75124188053839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5d5c8c8c8d%3A0x5e4b5c8c8c8c8c8c!2z0JzQvtGB0LrQstCwLCAxLCDQktCw0L3QsNC5INCg0L7RgdC60LLQsCwg0JHQvtC70YzRiNCw0Y8g0L7QsdC70LDRgdGC0Yw!5e0!3m2!1sru!2sru!4v1712345678901!5m2!1sru!2sru" 
-                width="100%" 
-                height="300" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </section>
-    </main>
+        
+        </main>
 
     <footer>
         <div class="footer-container">
@@ -102,12 +115,20 @@
                 </address>
             </div>
             
-            </div>
+        </div>
 
         <div class="footer-bottom">
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
 
+    <script>
+        // Скрипт для автоматического закрытия меню при клике на ссылку
+        document.querySelectorAll('.nav-list a').forEach(item => {
+            item.addEventListener('click', () => {
+                document.getElementById('menu-check').checked = false;
+            });
+        });
+    </script>
 </body>
 </html>

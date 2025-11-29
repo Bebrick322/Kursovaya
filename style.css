@@ -15,9 +15,10 @@ body {
     font-family: 'Open Sans', sans-serif;
     line-height: 1.6;
     color: #e0e0e0;
-    background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+    /* Ваши градиенты */
+    background: linear-gradient(135deg, #111111 0%, #171717 100%);
     min-height: 100vh;
-    padding-top: 80px; /* Отступ для фиксированной шапки */
+    padding-top: 80px; 
 }
 
 a {
@@ -65,6 +66,22 @@ h2 {
     transform: translateY(-2px);
 }
 
+/* Добавлен класс для кнопки в каталоге */
+.btn-primary {
+    background: #4fc3f7;
+    color: #121212;
+    border: none;
+    padding: 12px 15px; /* Увеличенный padding для каталога */
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+.btn-primary:hover {
+    background: #29b6f6;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(79, 195, 247, 0.4);
+}
+
+
 .clearfix::after {
     content: "";
     display: table;
@@ -93,6 +110,7 @@ header {
     align-items: center;
     padding: 0 2rem;
     height: 100%;
+    position: relative; /* Важно для мобильного меню */
 }
 
 .logo {
@@ -152,14 +170,18 @@ nav ul.nav-list li a:hover {
     color: #4fc3f7;
 }
 
-/* ГЛАВНЫЙ КОНТЕНТ*/
+.menu-toggle {
+    display: none; 
+}
+
+/* ГЛАВНЫЙ КОНТЕНТ (ИЗМЕНЕНЫ ОТСТУПЫ)*/
 main {
     max-width: 1200px;
-    margin: 2rem auto;
+    margin: 1.5rem auto; 
     padding: 0 2rem;
     display: grid;
     grid-template-columns: 1fr; 
-    gap: 2rem;
+    gap: 1.5rem; 
 }
 
 /* СЕКЦИЯ #main */
@@ -169,7 +191,7 @@ main {
     padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-    margin-bottom: 1rem;
+    margin-bottom: 0; 
     align-items: center;
 }
 
@@ -190,10 +212,10 @@ main {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
 }
 
-/* СЕКЦИИ КОНТЕНТА*/
+/* СЕКЦИИ КОНТЕНТА */
 section {
     background: #1e1e1e;
-    padding: 2rem;
+    padding: 1.5rem 2rem; 
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -234,7 +256,7 @@ section {
     min-width: 25px; 
 }
 
-/* ФОРМА  */
+/* ФОРМА  */
 #form-section label {
     display: block;
     margin-top: 1rem;
@@ -285,7 +307,11 @@ section {
 
 #form-section input[type="checkbox"],
 #form-section input[type="radio"] {
-    width: auto;
+    /* Чтобы инпуты были видимыми и стилизуемыми */
+    -webkit-appearance: checkbox; 
+    appearance: checkbox;
+    width: 20px; 
+    height: 20px;
     margin-right: 0.6rem;
 }
 
@@ -299,8 +325,8 @@ section {
 /* КАРТА И ВИДЕО */
 #map-section,
 #video-section {
-    margin: 0.5rem 0;
-    padding: 1rem;
+    margin: 2rem 0; 
+    padding: 1.5rem 2rem; 
     background: #1e1e1e;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -317,6 +343,55 @@ section {
     border: 1px solid #444;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+
+/* ГАЛЕРЕЯ (ОСТАВЛЕНА, ЕСЛИ ВАМ НУЖНА ДЛЯ ДРУГИХ СТРАНИЦ) */
+#gallery {
+    padding: 1.5rem 2rem; 
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+.image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(40, 40, 40, 0.7);
+    border-radius: 10px;
+}
+
+.image-gallery figure {
+    flex: 1 1 calc(50% - 1rem); 
+    margin: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.image-gallery figure:hover {
+    transform: scale(1.03);
+}
+
+.image-gallery img {
+    display: block;
+    width: 100%;
+    height: 250px; 
+    object-fit: contain; 
+    background-color: #333;
+}
+
+.image-gallery figcaption {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
 
 /* ПОДВАЛ */
 footer {
@@ -365,6 +440,146 @@ footer {
 }
 
 
+/* --- УЛУЧШЕННЫЕ СТИЛИ КАТАЛОГА  --- */
+
+/* Сетка каталога: ИЗМЕНЕНО для 2 колонок */
+.product-grid {
+    display: grid;
+    /* Увеличение минимальной ширины (с 300px до 450px) форсирует 2 колонки на широких экранах */
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* Основная карточка */
+.product-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #282828; 
+    padding: 0; 
+}
+
+.product-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2); 
+}
+
+/* Обертка для изображения (фиксируем высоту): ИЗМЕНЕНО для увеличения фото */
+.product-image-wrapper {
+    height: 400px; /* Увеличили высоту с 300px до 400px */
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 0; 
+    margin-bottom: 0;
+    border: none;
+    transition: transform 0.5s ease;
+}
+/* Стилизация заголовка каталога */
+#catalog h2 {
+    text-align: center;
+    border-bottom: none; 
+    color: #4fc3f7; 
+    font-size: 2.2rem;
+    padding-bottom: 0;
+}
+
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: #a0a0a0;
+    font-size: 1.1rem;
+}
+
+
+/* Основная карточка */
+.product-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #282828; 
+    padding: 0; /* Убираем padding, чтобы изображение занимало край */
+}
+
+.product-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2); 
+}
+
+/* Обертка для изображения (фиксируем высоту) */
+.product-image-wrapper {
+    height: 300px; 
+    overflow: hidden;
+    position: relative;
+    background-color: #000;
+}
+
+.product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Изображение будет видно целиком, без обрезки */
+    display: block;
+    border-radius: 0; /* Сброс старых стилей */
+    margin-bottom: 0;
+    border: none;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.03); 
+}
+
+/* Информационный блок */
+.product-info {
+    padding: 20px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info h3 {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.product-info p {
+    margin-bottom: 0;
+}
+
+.product-info .description {
+    color: #b0b0b0;
+    margin-bottom: 1rem;
+    flex-grow: 1; 
+}
+
+.product-info .price {
+    font-size: 1.5rem;
+    color: #66bb6a; 
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* Адаптивный макет */
 .content-flex-layout {
     display: flex;
     flex-wrap: wrap; 
@@ -375,87 +590,22 @@ footer {
 
 /* Стили для десктопа */
 #history { 
-    flex: 2 1 calc(65% - 1rem); /* 2/3 ширины */
-    order: 1;
+    flex: 2 1 calc(65% - 1rem); 
 }
 
 
 #advantages { 
-    flex: 1 1 calc(35% - 1rem); /* 1/3 ширины */
-    order: 4; 
+    flex: 1 1 calc(35% - 1rem); 
 }
 
 #business { 
-    flex: 2 1 calc(65% - 1rem); /* 2/3 ширины */
-    order: 3; 
+    flex: 2 1 calc(65% - 1rem); 
 }
 
-#gallery {
-    padding: 2rem;
-    background: #1e1e1e;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin: 2rem 0;
-}
-
-.image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    padding: 1rem;
-    background: rgba(40, 40, 40, 0.7);
-    border-radius: 10px;
-}
-
-.image-gallery figure {
-    flex: 1 1 calc(50% - 1rem); 
-    margin: 0;
-    overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
-.image-gallery figure:hover {
-    transform: scale(1.03);
-}
-
-.image-gallery img {
-    display: block;
-    width: 100%;
-    height: 250px; 
-    object-fit: contain; 
-    background-color: #333;
-}
-
-.image-gallery figcaption {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    padding: 0.5rem;
-    text-align: center;
-    font-style: italic;
-    font-size: 0.9rem;
-}
 
 
 @media (max-width: 1024px) {
-    /* Переключение макета GRID: контент и сайдбар в одну колонку */
-    main {
-        grid-template-columns: 1fr;
-    }
-
-    #main {
-        flex-direction: column;
-    }
-
-    .main-content {
-        padding-right: 0;
-        text-align: center;
-    }
-
-    .main-image {
-        margin-top: 1.5rem;
-    }
+    /* ... */
     
     /* Галерея: 3 колонки */
     .image-gallery figure {
@@ -469,10 +619,9 @@ footer {
     }
     
     .header-container {
-        /* Изменение для мобильного: лого и бургер */
         justify-content: space-between;
+        position: relative; 
     }
-
 
     .content-flex-layout {
         flex-direction: column;
@@ -497,6 +646,15 @@ footer {
         flex: 1 1 calc(50% - 1rem);
     }
 
+    /* Адаптивность для каталога */
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .product-image-wrapper {
+        height: 250px;
+    }
+
     /* Подвал: секции в колонку */
     .footer-container {
         flex-direction: column;
@@ -504,10 +662,30 @@ footer {
         text-align: center;
     }
     
-
-    /* Скрываем чекбокс */
+    /* Стили для корректной видимости и выравнивания чекбокса */
+    #form-section .checkbox-group {
+        display: flex; 
+        align-items: flex-start; 
+    }
+    
+    #form-section input[type="checkbox"],
+    #form-section input[type="radio"] {
+        flex-shrink: 0; 
+        width: 20px; 
+        height: 20px;
+        margin-top: 0.15rem; 
+    }
+    
+    #form-section .checkbox-group label {
+        display: inline-block;
+        margin-left: 0.5rem; 
+        margin-right: 0; 
+        line-height: 1.2;
+    }
+    
+    /* Скрываем чекбокс (если он не стилизуется) */
     .menu-check {
-        display: none;
+        display: none; 
     }
 
     /* Отображаем кнопку-бургер (метка) */
@@ -518,10 +696,8 @@ footer {
         height: 30px;
         align-items: center;
         justify-content: center;
-        position: relative;
-        z-index: 1010;
-        /* Перемещаем бургер на край */
         position: absolute; 
+        z-index: 1010;
         right: 2rem;
         top: 20px;
     }
@@ -545,11 +721,11 @@ footer {
     }
 
     .burger-icon::before {
-        transform: translateY(-9px); /* Верхняя линия */
+        transform: translateY(-9px); 
     }
 
     .burger-icon::after {
-        transform: translateY(9px); /* Нижняя линия */
+        transform: translateY(9px); 
     }
     
     /* Навигационный список: скрываем на мобильном по умолчанию */
@@ -557,15 +733,15 @@ footer {
         flex-direction: column;
         align-items: center;
         background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-        position: fixed; /* Используем fixed для полноэкранного меню */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100vh; /* Занимаем всю высоту экрана */
+        height: 100vh;
         padding: 80px 2rem 2rem;
         visibility: hidden;
         opacity: 0;
-        transform: translateX(-100%); /* Изначально за пределами экрана */
+        transform: translateX(-100%);
         transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
         z-index: 1005;
     }
@@ -585,29 +761,51 @@ footer {
     .menu-check:checked ~ .nav-list {
         visibility: visible;
         opacity: 1;
-        transform: translateX(0); /* Показать меню */
+        transform: translateX(0);
     }
 
     .menu-check:checked ~ .menu-toggle .burger-icon {
-        background-color: transparent; /* Скрываем среднюю линию */
+        background-color: transparent;
     }
 
     .menu-check:checked ~ .menu-toggle .burger-icon::before {
-        transform: rotate(45deg); /* Вращаем верхнюю линию */
+        transform: rotate(45deg);
     }
 
     .menu-check:checked ~ .menu-toggle .burger-icon::after {
-        transform: rotate(-45deg); /* Вращаем нижнюю линию */
+        transform: rotate(-45deg);
     }
 }
+
+@media (max-width: 600px) {
+    .checkbox-group {
+        display: flex; 
+        align-items: flex-start; 
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+        min-width: 20px; 
+        min-height: 20px;
+        margin-right: 10px; 
+        flex-shrink: 0; 
+        opacity: 1; 
+        position: static; 
+        -webkit-appearance: checkbox; 
+        appearance: checkbox;
+    }
+
+    /* Убедимся, что метка занимает оставшееся место */
+    .checkbox-group label {
+        flex-grow: 1; 
+        font-size: 0.9rem; 
+    }
+}
+
 
 @media (max-width: 480px) {
     .image-gallery figure {
         flex: 1 1 100%;
     }
 }
-
-
-
-
-
