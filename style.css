@@ -1,5 +1,53 @@
 /* БАЗОВЫЕ СТИЛИ */
 
+/* --- CSS-ПЕРЕМЕННЫЕ (CUSTOM PROPERTIES) --- */
+:root {
+    --primary-color: #4fc3f7; /* Основной голубой */
+    --secondary-color: #66bb6a; /* Зеленый для цен */
+    --bg-dark: #111111; /* Темный фон */
+    --bg-light: #171717; /* Чуть более светлый фон */
+    --text-light: #e0e0e0; /* Светлый текст */
+    --font-heading: 'Montserrat', sans-serif;
+    --transition-speed: 0.3s;
+    --transition-long: 0.5s;
+    --shadow-base: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Применение переменных к базовым стилям (замена старых значений) */
+body {
+    /* ИСПОЛЬЗУЕМ ПЕРЕМЕННЫЕ */
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+    color: var(--text-light);
+}
+
+a {
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+a:hover {
+    color: #29b6f6; /* Можно оставить конкретный оттенок или создать новую переменную */
+}
+
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: #ffffff;
+}
+
+/* ХЕДЕР */
+.header-container {
+    background: var(--bg-dark);
+}
+
+.logo-text {
+    color: var(--primary-color);
+}
+
+/* ФУТЕР (используем тут, чтобы не потерять) - Этот блок теперь переопределен новым кодом Grid */
+.footer-container {
+    background: var(--bg-dark);
+}
+
 html {
     scroll-padding-top: 80px; 
     scroll-behavior: smooth; 
@@ -393,59 +441,93 @@ section {
 }
 
 
-/* ПОДВАЛ */
+/* --- ФУТЕР (GRID LAYOUT + АНИМАЦИЯ) --- */
+
 footer {
-    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
-    padding: 2rem 0 1rem;
-    color: #aaa;
-    border-top: 1px solid #333;
+    /* Теперь использует переменную */
+    background: var(--bg-dark);
+    color: var(--text-light);
+    padding: 2rem 0 0; 
 }
 
+/* 1. Grid Layout для футера */
 .footer-container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 2rem;
+    padding: 0 2rem 2rem; /* Добавлен padding 0 2rem 2rem */
+    border-top: 1px solid #282828;
+
+    display: grid;
+    /* 3 колонки для широких экранов */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 30px;
 }
 
 .footer-section {
-    flex: 1 1 200px;
+    padding: 1rem 0;
 }
 
 .footer-section h4 {
-    color: white;
     margin-bottom: 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    position: relative; /* Для позиционирования анимации */
+    display: inline-block;
 }
 
-.footer-section ul {
-    padding: 0;
+/* 2. Анимация заголовков футера */
+.footer-link-box {
+    display: inline-block;
+    position: relative;
+    padding: 0 0 5px 0; /* Отступ для линии */
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 700;
+    transition: color var(--transition-speed);
 }
 
-.footer-section li {
+.footer-link-box::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+    transform: scaleX(0); /* Изначально скрыта */
+    transform-origin: left;
+    transition: transform var(--transition-speed) ease-out;
+}
+
+.footer-link-box:hover {
+    color: var(--primary-color);
+}
+
+.footer-link-box:hover::before {
+    transform: scaleX(1); /* Показать линию */
+}
+
+.footer-section p, 
+.footer-section address p {
+    font-size: 0.95rem;
     margin-bottom: 0.5rem;
 }
 
-.footer-section a {
-    color: #aaa;
-}
-
 .footer-bottom {
+    border-top: 1px solid #282828;
     text-align: center;
-    padding-top: 1rem;
-    margin-top: 1rem;
-    border-top: 1px solid #333;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    color: #888;
 }
 
+/* --- УЛУЧШЕННЫЕ СТИЛИ КАТАЛОГА  (Объединенный блок) --- */
 
-/* --- УЛУЧШЕННЫЕ СТИЛИ КАТАЛОГА  --- */
-
-/* Сетка каталога: ИЗМЕНЕНО для 2 колонок */
+/* Сетка каталога: ИЗМЕНЕНО для 2 колонок (450px minmax) */
 .product-grid {
     display: grid;
-    /* Увеличение минимальной ширины (с 300px до 450px) форсирует 2 колонки на широких экранах */
+    /* Увеличение минимальной ширины форсирует 2 колонки на широких экранах */
     grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); 
     gap: 30px;
     padding: 20px 0;
@@ -469,9 +551,9 @@ footer {
     box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2); 
 }
 
-/* Обертка для изображения (фиксируем высоту): ИЗМЕНЕНО для увеличения фото */
+/* Обертка для изображения (фиксируем высоту): УВЕЛИЧЕННАЯ ВЫСОТА 400px */
 .product-image-wrapper {
-    height: 400px; /* Увеличили высоту с 300px до 400px */
+    height: 400px; 
     overflow: hidden;
     position: relative;
     background-color: #000;
@@ -483,60 +565,6 @@ footer {
     object-fit: contain;
     display: block;
     border-radius: 0; 
-    margin-bottom: 0;
-    border: none;
-    transition: transform 0.5s ease;
-}
-/* Стилизация заголовка каталога */
-#catalog h2 {
-    text-align: center;
-    border-bottom: none; 
-    color: #4fc3f7; 
-    font-size: 2.2rem;
-    padding-bottom: 0;
-}
-
-.section-description {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 3rem;
-    color: #a0a0a0;
-    font-size: 1.1rem;
-}
-
-
-/* Основная карточка */
-.product-card {
-    background: #1a1a1a;
-    border-radius: 12px;
-    overflow: hidden; 
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #282828; 
-    padding: 0; /* Убираем padding, чтобы изображение занимало край */
-}
-
-.product-card:hover {
-    transform: translateY(-5px); 
-    box-shadow: 0 10px 30px rgba(79, 195, 247, 0.2); 
-}
-
-/* Обертка для изображения (фиксируем высоту) */
-.product-image-wrapper {
-    height: 300px; 
-    overflow: hidden;
-    position: relative;
-    background-color: #000;
-}
-
-.product-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Изображение будет видно целиком, без обрезки */
-    display: block;
-    border-radius: 0; /* Сброс старых стилей */
     margin-bottom: 0;
     border: none;
     transition: transform 0.5s ease;
@@ -586,6 +614,23 @@ footer {
     gap: 1rem;
     margin-bottom: 1rem;
     grid-column: 1 / -1;
+}
+
+/* Стилизация заголовка каталога */
+#catalog h2 {
+    text-align: center;
+    border-bottom: none; 
+    color: #4fc3f7; 
+    font-size: 2.2rem;
+    padding-bottom: 0;
+}
+
+.section-description {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    color: #a0a0a0;
+    font-size: 1.1rem;
 }
 
 /* Стили для десктопа */
@@ -655,14 +700,14 @@ footer {
         height: 250px;
     }
 
-    /* Подвал: секции в колонку */
+    /* Адаптив для футера (768px и ниже): 2 колонки */
     .footer-container {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+        /* Две колонки для планшетов */
+        grid-template-columns: repeat(2, 1fr); 
+        text-align: left;
     }
     
-    /* Стили для корректной видимости и выравнивания чекбокса */
+    
     #form-section .checkbox-group {
         display: flex; 
         align-items: flex-start; 
@@ -683,12 +728,10 @@ footer {
         line-height: 1.2;
     }
     
-    /* Скрываем чекбокс (если он не стилизуется) */
     .menu-check {
         display: none; 
     }
 
-    /* Отображаем кнопку-бургер (метка) */
     .menu-toggle {
         display: flex;
         cursor: pointer;
@@ -702,7 +745,6 @@ footer {
         top: 20px;
     }
     
-    /* Стилизация иконки бургера (три линии) с ::before и ::after */
     .burger-icon,
     .burger-icon::before,
     .burger-icon::after {
@@ -728,7 +770,6 @@ footer {
         transform: translateY(9px); 
     }
     
-    /* Навигационный список: скрываем на мобильном по умолчанию */
     nav ul.nav-list {
         flex-direction: column;
         align-items: center;
@@ -800,6 +841,22 @@ footer {
     .checkbox-group label {
         flex-grow: 1; 
         font-size: 0.9rem; 
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .footer-link-box {
+        margin: 0 auto;
+    }
+    .footer-link-box::before {
+        left: 50%;
+        transform-origin: center;
+        transform: translate(-50%) scaleX(0);
+    }
+    .footer-link-box:hover::before {
+        transform: translate(-50%) scaleX(1);
     }
 }
 
