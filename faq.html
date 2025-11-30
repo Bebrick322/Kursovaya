@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вопросы и ответы (FAQ) - VendingWorld</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-circle">
+                    <img src="images/logo.png" alt="Логотип" class="logo-img">
+                </span>
+                <span class="logo-text">VendingWorld</span>
+            </a>
+            
+            <nav>
+                <input type="checkbox" id="menu-check" class="menu-check">
+                <label for="menu-check" class="menu-toggle" aria-label="Меню">
+                    <span class="burger-icon"></span>
+                </label>
+                <ul class="nav-list">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог автоматов</a></li>
+                    <li><a href="faq.html">Вопросы и ответы</a></li> <li><a href="index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="faq" class="faq-section">
+            <h2>Часто задаваемые вопросы (FAQ)</h2>
+            <p class="section-description">Мы собрали самые популярные вопросы о торговых автоматах и нашем бизнесе.</p>
+
+            <div class="accordion-container">
+                
+                <details class="faq-item">
+                    <summary class="faq-question">Какие гарантии вы предоставляете на автоматы?</summary>
+                    <div class="faq-answer">
+                        <p>Мы предоставляем полную гарантию 1 год на все основные компоненты автомата (платежная система, холодильное оборудование, электроника). Также мы обеспечиваем послегарантийное обслуживание.</p>
+                    </div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-question">Нужно ли специальное разрешение для установки автомата?</summary>
+                    <div class="faq-answer">
+                        <p>В большинстве случаев для установки автомата требуется только договор аренды с собственником помещения. Специальных лицензий или разрешений обычно не требуется, если вы не продаете алкоголь или табак.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">Какова окупаемость вендингового бизнеса?</summary>
+                    <div class="faq-answer">
+                        <p>Окупаемость сильно зависит от места установки и типа автомата. В среднем, при удачном расположении, автоматы окупаются в течение 12–18 месяцев. Мы помогаем с анализом локации.</p>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">Как происходит техническое обслуживание?</summary>
+                    <div class="faq-answer">
+                        <p>Техническое обслуживание (инкассация, пополнение товаров) обычно занимает 1-2 часа в неделю на один автомат. Наша система мониторинга позволяет отслеживать остатки и сбои удаленно.</p>
+                    </div>
+                </details>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4><span class="footer-link-box">О компании</span></h4>
+                <p>VendingWorld — ваш надёжный партнёр в мире торговых автоматов.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4 id="contacts"><span class="footer-link-box">Контакты</span></h4>
+                <address>
+                    <p>Email: <a href="mailto:0btbowxdrfxu@mail.ru">0btbowxdrfxu@mail.ru</a></p>
+                    <p>Телефон: <a href="tel:88005553535">88005553535</a></p>
+                    <p>Адрес: г. Москва, ул. Торговая, д. 1</p>
+                </address>
+            </div>
+            
+            <div class="footer-section">
+                <h4><span class="footer-link-box">Разработчик</span></h4>
+                <address>
+                    <p><strong>Ресулов Эльдар Рашидович</strong></p>
+                </address>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 VendingWorld. Все права защищены.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Скрипт для автоматического закрытия меню при клике на ссылку (для мобильных)
+        document.querySelectorAll('.nav-list a').forEach(item => {
+            item.addEventListener('click', () => {
+                const menuCheck = document.getElementById('menu-check');
+                if (menuCheck) {
+                    menuCheck.checked = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

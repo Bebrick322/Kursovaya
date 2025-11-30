@@ -648,6 +648,118 @@ footer {
 }
 
 
+/* --- СТИЛИ ДЛЯ FAQ (АККОРДЕОН) --- */
+
+.faq-section {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    background: var(--bg-light); /* Используем переменную */
+    box-shadow: var(--shadow-base); /* Используем переменную */
+}
+
+.faq-section h2 {
+    color: var(--primary-color);
+    text-align: center;
+    border-bottom: 2px solid #333;
+}
+
+.accordion-container {
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.faq-item {
+    display: block; 
+    border: 1px solid #282828;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background: #1e1e1e;
+    overflow: hidden;
+    transition: box-shadow var(--transition-speed);
+}
+
+.faq-item summary::-webkit-details-marker,
+.faq-item summary::marker {
+    display: none;
+    content: "";
+}
+
+.faq-item:hover {
+    box-shadow: 0 0 15px rgba(79, 195, 247, 0.2);
+}
+
+.faq-question {
+    margin: 0; 
+    padding: 18px 25px; 
+    display: block;
+    cursor: pointer;
+    background: #171717; 
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    transition: background-color 0.3s;
+    list-style: none; 
+}
+
+.faq-question:hover {
+    background-color: #222;
+    color: var(--primary-color);
+}
+
+/* Иконка "плюс/минус" */
+.faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: transform var(--transition-speed);
+    line-height: 1;
+}
+
+/* Изменение иконки, когда аккордеон открыт */
+.faq-item[open] .faq-question::after {
+    content: '−'; /* Знак минус */
+}
+
+/* Стили для ответа (Content) */
+.faq-answer {
+    padding: 15px 25px 25px;
+    background: #1e1e1e;
+    border-top: 1px solid #282828;
+    color: var(--text-light);
+}
+
+.faq-answer p {
+    margin: 0;
+    line-height: 1.8;
+}
+
+/* Исправление отступа для тега details */
+.faq-item[open] {
+    padding-bottom: 0;
+}
+
+/* Медиа-запросы для FAQ */
+@media (max-width: 600px) {
+    .faq-section {
+        padding: 1.5rem;
+    }
+    .faq-question {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+    .faq-answer {
+        padding: 10px 20px 20px;
+    }
+}
+
+
 
 @media (max-width: 1024px) {
     /* ... */
