@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог</title>
+    <title>Товар - VendingWorld</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
 </head>
@@ -32,16 +32,21 @@
         </div>
     </header>
 
-    <main>
-        <h2>Каталог оборудования</h2>
-        <div style="margin-bottom: 30px; display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
-            <button class="control-btn" onclick="sortGoods('asc')" style="width: auto; display: inline-block;">Сорт: Дешевле</button>
-            <button class="control-btn" onclick="sortGoods('desc')" style="width: auto; display: inline-block;">Сорт: Дороже</button>
-            <a href="cart.html" class="control-btn" style="width: auto; margin-left: auto;">Перейти в корзину →</a>
-        </div>
-        
-        <div class="product-grid" id="productsContainer">
+
+    <main id="productDetail">
+        <div class="product-detail-container">
+            <div class="product-full-img">
+                <img id="prodImg" src="" alt="Товар">
             </div>
+            <div>
+                <h1 id="prodName" style="font-size: 2.5rem; margin-bottom: 20px;">Название товара</h1>
+                <p id="prodPrice" style="color: var(--primary-color); font-size: 2rem; font-weight: bold; margin-bottom: 20px;">0 ₽</p>
+                <p id="prodDesc" style="font-size: 1.1rem; color: #ccc; margin-bottom: 30px;">Описание...</p>
+                
+                <button id="addBtn" class="submit-btn" style="width: auto; padding: 15px 40px;">В корзину</button>
+                <a href="catalog.html" style="display: block; margin-top: 20px; color: #aaa;">← Вернуться в каталог</a>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -54,10 +59,7 @@
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
+
     <script src="main.js"></script>
-    <script>
-        // Обновление счетчика в колокольчике при загрузке
-        document.addEventListener('DOMContentLoaded', updateCartDisplay); 
-    </script>
 </body>
 </html>

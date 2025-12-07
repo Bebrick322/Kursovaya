@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+    <div class="notification-bell" id="notifyBell">🔔<span class="notification-counter" id="notifyCounter">0</span></div>
+
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-circle"><img src="images/logo.png" alt="Logo" class="logo-img"></span>
+                <span class="logo-text">VendingWorld</span>
+            </a>
+            <nav>
+                <label for="menu-check" class="menu-toggle" id="menuToggle" aria-label="Меню">
+                    <span class="burger-icon"></span>
+                </label>
+                <ul class="nav-list" id="navList">
+                    <li><a href="index.html" style="color:var(--primary-color);">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="cart.html">🛒 Корзина</a></li>
+                    <li><a href="login.html" class="nav-login-btn">🔒 Войти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="contact-form-container">
+            <h2>Свяжитесь с нами</h2>
+            <form id="contactForm" onsubmit="event.preventDefault(); submitContactForm();">
+                <div class="form-group">
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                
+                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border:1px solid #333; text-align:center;">
+                    <p style="color:#aaa;">Код с картинки:</p>
+                    <div id="captchaText" style="font-size:1.5rem; letter-spacing:3px; background:#333; padding:5px 15px; border-radius:5px; display:inline-block; font-family:monospace;">CODE</div>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <input type="text" id="captchaInput" placeholder="Код...">
+                        <button type="button" class="submit-btn" style="width:auto;" onclick="verifyCaptcha()">OK</button>
+                    </div>
+                    <p id="captchaError" style="color:#ff5252; display:none; margin-top:5px;">Ошибка!</p>
+                </div>
+                <button type="submit" id="submitBtn" class="submit-btn" disabled style="width:100%; margin-top:15px;">Отправить заявку</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div><h4>О компании</h4><p>Лидер рынка вендинга.</p></div>
+            <div><h4>Соцсети</h4><div class="social-buttons"><a href="#" class="social-btn">VK</a><a href="#" class="social-btn">TG</a></div></div>
+            <div><h4>Контакты</h4><p>8 800 555 35 35</p></div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 VendingWorld. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Добавление заглушки для функции submitContactForm
+        function submitContactForm() {
+            alert('Заявка отправлена! Спасибо за обращение.');
+        }
+
+        // Вызов функции генерации капчи при загрузке страницы
+        document.addEventListener('DOMContentLoaded', generateCaptcha);
+    </script>
+</body>
+</html>

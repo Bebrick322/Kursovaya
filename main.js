@@ -1,0 +1,380 @@
+/* ==========================================================================
+   1. ОБЩИЙ ФУНКЦИОНАЛ (Уведомления и Мобильное Меню)
+   ========================================================================== */
+let notifyCount = 0;
+let notifyPaused = false;
+const bell = document.getElementById('notifyBell');
+const counter = document.getElementById('notifyCounter');
+
+// Счетчик (каждые 3 сек)
+setInterval(() => {
+    if (!notifyPaused && counter) {
+        notifyCount++;
+        counter.textContent = notifyCount;
+    }
+}, 3000);
+
+if (bell) {
+    bell.addEventListener('click', () => {
+        if (notifyPaused) return;
+        notifyPaused = true;
+        bell.classList.add('paused');
+        showNotification({ content: "🔕 Уведомления скрыты" });
+        setTimeout(() => {
+            notifyPaused = false;
+            bell.classList.remove('paused');
+            showNotification({ content: "🔔 Уведомления активны" });
+        }, 10000);
+    });
+}
+
+function showNotification({ content }) {
+    const note = document.createElement('div');
+    note.className = 'notification-toast';
+    note.innerHTML = `${content} <span style="margin-left:10px; cursor:pointer;" onclick="this.parentElement.remove()">✖</span>`;
+    document.body.appendChild(note);
+    setTimeout(() => note.remove(), 3000);
+}
+
+// ==========================================================================
+// Логика Мобильного Меню (переход на классы)
+// ==========================================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.getElementById('menuToggle');
+    const navList = document.getElementById('navList');
+
+    if (menuToggle && navList) {
+        // 1. Открытие/Закрытие меню по клику на бургер
+        menuToggle.addEventListener('click', () => {
+            navList.classList.toggle('open');
+            menuToggle.classList.toggle('open');
+        });
+
+        // 2. Автоматическое закрытие меню при клике на ссылку
+        navList.querySelectorAll('a').forEach(item => {
+            item.addEventListener('click', () => {
+                // Проверяем, что меню открыто
+                if (navList.classList.contains('open') && window.innerWidth <= 900) {
+                    navList.classList.remove('open');
+                    menuToggle.classList.remove('open');
+                }
+            });
+        });
+    }
+});
+
+
+/* ==========================================================================
+   2. КАТАЛОГ (ТОВАРЫ + КОРЗИНА)
+   ========================================================================== */
+const initialProducts = [
+    { 
+        id: 1, name: "Кофемат Jetinno JL300", price: 399000, 
+        img: "https://art-vending.ru/upload/iblock/314/jl_300_1.png",
+        desc: "Профессиональный автомат с 2 кофемолками и 12 видами напитков." 
+    },
+    { 
+        id: 2, name: "Снековый TCN D720", price: 254000, 
+        img: "https://art-vending.ru/upload/resize_cache/iblock/46e/320_480_1/TCN%20D720-66.jpeg",
+        desc: "Антивандальный корпус, вместимость до 500 единиц товара." 
+    },
+    { 
+        id: 3, name: "Комби-бар Rosso ToGo", price: 774000, 
+        img: "https://art-vending.ru/upload/resize_cache/iblock/60e/320_480_1/%D0%9A%D0%BE%D0%BC%D0%B1%D0%B8%20%D1%82%D0%BE%D1%80%D0%B3%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%20ROSSO%20TOGO%20BAR.jpg",
+        desc: "Идеальное решение 2в1: кофе из зерен и холодные снеки." 
+    },
+    { 
+        id: 4, name: "AQUATIC WA-400N", price: 218800, 
+        img: "images/water vending.jpg",
+        desc: "Автомат очистки и продажи воды. Производительность: 2250 л/сутки. Габариты: 700х600х1850 мм. Вес: 150 кг." 
+    }
+];
+
+// Корзина теперь хранится в localStorage и доступна на всех страницах
+let cart = JSON.parse(localStorage.getItem('vendingCart')) || {};
+
+function saveCart() {
+    localStorage.setItem('vendingCart', JSON.stringify(cart));
+}
+
+window.addToCart = function(productId) {
+    const prod = initialProducts.find(p => p.id === productId);
+    if (!prod) return;
+
+    const idKey = String(productId); // Используем строковый ключ для объекта cart
+    if (cart[idKey]) {
+        cart[idKey].qty++;
+    } else {
+        // Создаем полную копию данных для корзины
+        cart[idKey] = { 
+            id: prod.id, 
+            name: prod.name, 
+            price: prod.price, 
+            img: prod.img, 
+            qty: 1 
+        };
+    }
+
+    saveCart();
+    updateCartDisplay();
+    showNotification({content: `✅ Добавлено: ${prod.name}`});
+}
+
+// Удаление товара из корзины
+window.removeFromCart = function(productId) {
+    const idKey = String(productId);
+    if (cart[idKey]) {
+        if (cart[idKey].qty > 1) {
+            cart[idKey].qty--;
+        } else {
+            delete cart[idKey];
+        }
+    }
+    saveCart();
+    updateCartDisplay();
+    showNotification({ content: `➖ Удален из корзины (ID: ${productId})` });
+}
+
+// Очистка корзины
+window.clearCart = function() {
+    if (confirm("Вы уверены, что хотите очистить корзину?")) {
+        cart = {};
+        saveCart();
+        updateCartDisplay();
+        showNotification({ content: "🗑️ Корзина очищена!" });
+    }
+}
+
+// Обновление отображения корзины (для cart.html)
+window.updateCartDisplay = function() {
+    const listElement = document.getElementById('cartItemsList');
+    const totalElement = document.getElementById('totalPrice');
+
+    if (bell && counter) {
+        // Обновление счетчика в колокольчике
+        const totalItems = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+        counter.textContent = totalItems;
+    }
+
+    if (!listElement || !totalElement) return;
+
+    const itemKeys = Object.keys(cart);
+    let totalPrice = 0;
+
+    if (itemKeys.length === 0) {
+        listElement.innerHTML = 'Пусто';
+        totalElement.textContent = '0';
+        return;
+    }
+
+    listElement.innerHTML = '';
+    
+    itemKeys.forEach(id => {
+        const item = cart[id];
+        const itemPrice = item.price * item.qty;
+        totalPrice += itemPrice;
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+            <span>${item.name} (${item.qty} шт.)</span>
+            <span>${itemPrice.toLocaleString()} ₽
+                <button class="item-remove" onclick="removeFromCart(${item.id})">✖</button>
+            </span>
+        `;
+        listElement.appendChild(div);
+    });
+
+    totalElement.textContent = totalPrice.toLocaleString();
+}
+
+
+// Рендер карточек товаров
+function renderProducts(products = initialProducts) {
+    const container = document.getElementById('productsContainer');
+    if (!container) return; 
+
+    container.innerHTML = products.map(p => `
+        <article class="product-card" draggable="true" data-product-id="${p.id}" ondragstart="dragStart(event)">
+            <button class="like-btn" onclick="toggleLike(this)">🤍</button>
+            <a href="product.html?id=${p.id}" class="product-image"><img src="${p.img}" alt="${p.name}"></a>
+            <div class="product-info">
+                <h3><a href="product.html?id=${p.id}" style="color:#fff;">${p.name}</a></h3>
+                <p class="product-desc">${p.desc}</p>
+                <div class="price">${p.price.toLocaleString()} ₽</div>
+                <a href="product.html?id=${p.id}">Подробнее</a>
+                <a href="#" onclick="event.preventDefault(); addToCart(${p.id})" style="margin-top: 10px; background: var(--primary-dark);">В корзину</a>
+            </div>
+        </article>
+    `).join('');
+
+    // Присвоение обработчиков перетаскивания (только на странице каталога)
+    const cartDropZone = document.getElementById('cartDropZone');
+    if (cartDropZone) {
+        cartDropZone.addEventListener('dragover', dragOver);
+        cartDropZone.addEventListener('drop', dropHandler);
+        cartDropZone.addEventListener('dragenter', (e) => e.target.closest('.cart-area').classList.add('drag-over'));
+        cartDropZone.addEventListener('dragleave', (e) => e.target.closest('.cart-area').classList.remove('drag-over'));
+    }
+}
+
+// Логика перетаскивания (Drag and Drop)
+function dragStart(event) {
+    event.dataTransfer.setData('productId', event.target.getAttribute('data-product-id'));
+    event.dataTransfer.effectAllowed = 'copy';
+}
+
+function dragOver(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+}
+
+function dropHandler(event) {
+    event.preventDefault();
+    const dropZone = event.target.closest('.cart-area');
+    if(dropZone) dropZone.classList.remove('drag-over');
+
+    const productId = event.dataTransfer.getData('productId');
+    if (productId) {
+        // Добавляем в корзину через функцию, которая ищет товар по ID
+        addToCart(Number(productId));
+    }
+}
+
+// Сортировка товаров
+window.sortGoods = function(order) {
+    const sorted = [...initialProducts];
+    sorted.sort((a, b) => order === 'asc' ? a.price - b.price : b.price - a.price);
+    renderProducts(sorted);
+}
+
+// Функции лайков
+function toggleLike(btn) {
+    btn.classList.toggle('liked');
+    btn.textContent = btn.classList.contains('liked') ? '❤️' : '🤍';
+    if(btn.classList.contains('liked')) showNotification({content: "Добавлено в избранное"});
+}
+
+// Запуск рендера товаров и корзины при загрузке
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('productsContainer')) {
+        renderProducts();
+    }
+});
+
+
+/* ==========================================================================
+   3. СТРАНИЦА ТОВАРА (product.html)
+   ========================================================================== */
+
+function loadProductDetail() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = Number(urlParams.get('id'));
+    const product = initialProducts.find(g => g.id === productId);
+
+    if (product) {
+        document.getElementById('prodName').textContent = product.name;
+        document.getElementById('prodPrice').textContent = `${product.price.toLocaleString()} ₽`;
+        document.getElementById('prodDesc').textContent = product.desc + " Полная гарантия 1 год. Страна-производитель: Россия.";
+        document.getElementById('prodImg').src = product.img;
+
+        document.getElementById('addBtn').onclick = () => {
+            addToCart(product.id);
+        };
+    } else if (document.getElementById('productDetail')) {
+        document.getElementById('productDetail').innerHTML = '<h2>Товар не найден</h2><p>Пожалуйста, вернитесь в <a href="catalog.html">каталог</a>.</p>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('productDetail')) {
+        loadProductDetail();
+    }
+});
+
+
+/* ==========================================================================
+   4. ПРОЧИЙ ФУНКЦИОНАЛ (Капча, Логин и прочее)
+   ========================================================================== */
+let captchaCode = "";
+const captchaDisplay = document.getElementById('captchaText');
+if (captchaDisplay) generateCaptcha();
+
+function generateCaptcha() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+    captchaCode = "";
+    for(let i=0; i<6; i++) captchaCode += chars.charAt(Math.floor(Math.random() * chars.length));
+    if(captchaDisplay) captchaDisplay.textContent = captchaCode;
+}
+
+window.verifyCaptcha = () => {
+    const input = document.getElementById('captchaInput');
+    const btn = document.getElementById('submitBtn');
+    const err = document.getElementById('captchaError');
+    if (!input || !btn || !err) return; 
+
+    if (input.value === captchaCode) {
+        btn.disabled = false; btn.textContent = 'Отправить заявку (Капча верна)'; 
+        err.style.display = "none"; 
+        alert("Верно! Кнопка разблокирована.");
+    } else {
+        err.style.display = "block"; err.textContent = "Неверно! Попробуйте снова.";
+        input.value = ""; generateCaptcha();
+        showNotification({ content: "❌ Ошибка Капчи" });
+    }
+}
+
+window.checkRegistration = function() {
+    let answer = prompt("Желаете пройти регистрацию на сайте? (Да/Нет)");
+    if (answer && answer.trim().toLowerCase() === "да") showNotification({ content: "✅ Добро пожаловать." });
+    else showNotification({ content: "❌ Отмена" });
+}
+
+window.startAdminLogin = function() {
+    let login = prompt("Введите логин (Админ):");
+    if (login === "Админ") {
+        let pass = prompt("Введите пароль (Я главный):");
+        if (pass === "Я главный") showNotification({ content: "🔓 Здравствуйте, Администратор!" });
+        else showNotification({ content: "⛔ Неверный пароль" });
+    } else showNotification({ content: "⛔ Я вас не знаю" });
+}
+
+// Заглушка для функции оформления заказа на cart.html
+window.checkout = function() {
+    alert('Функционал оформления заказа в разработке.');
+}
+
+/* ==========================================================================
+   5. ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ (Прокрутка Фавиконки)
+   ========================================================================== */
+
+function startFaviconScroll() {
+    // Иконки для прокрутки: Кофе, Корзина, Деньги, Лампочка
+    const icons = ['☕', '🛒', '💰', '💡']; 
+    let index = 0;
+    
+    // Создаем новый элемент <link> для фавиконки
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/svg+xml'; 
+
+    // Удаляем старый фавикон (если он был установлен через HTML)
+    const existingFavicon = document.querySelector("link[rel*='icon']");
+    if (existingFavicon) {
+        existingFavicon.remove();
+    }
+    
+    document.head.appendChild(favicon);
+
+    setInterval(() => {
+        const icon = icons[index];
+        // Генерация SVG с нужной иконкой
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="90%" font-size="90" dominant-baseline="baseline" text-anchor="middle">${icon}</text></svg>`;
+        favicon.href = 'data:image/svg+xml;base64,' + btoa(svg);
+        
+        index = (index + 1) % icons.length;
+    }, 1000); // Смена иконки каждую секунду
+}
+
+// Запускаем прокрутку фавиконки при загрузке страницы
+document.addEventListener('DOMContentLoaded', startFaviconScroll);

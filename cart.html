@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог</title>
+    <title>Корзина - VendingWorld</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
 </head>
@@ -21,11 +21,11 @@
                     <span class="burger-icon"></span>
                 </label>
                 <ul class="nav-list" id="navList">
-                    <li><a href="index.html" style="color:var(--primary-color);">Главная</a></li>
+                    <li><a href="index.html">Главная</a></li>
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Контакты</a></li>
-                    <li><a href="cart.html">🛒 Корзина</a></li>
+                    <li><a href="cart.html" style="color:var(--primary-color);">🛒 Корзина</a></li>
                     <li><a href="login.html" class="nav-login-btn">🔒 Войти</a></li>
                 </ul>
             </nav>
@@ -33,15 +33,15 @@
     </header>
 
     <main>
-        <h2>Каталог оборудования</h2>
-        <div style="margin-bottom: 30px; display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
-            <button class="control-btn" onclick="sortGoods('asc')" style="width: auto; display: inline-block;">Сорт: Дешевле</button>
-            <button class="control-btn" onclick="sortGoods('desc')" style="width: auto; display: inline-block;">Сорт: Дороже</button>
-            <a href="cart.html" class="control-btn" style="width: auto; margin-left: auto;">Перейти в корзину →</a>
+        <h2>🛒 Ваша Корзина</h2>
+
+        <div class="cart-area" id="cartDropZone">
+            <h3>Содержимое корзины</h3>
+            <div id="cartItemsList">Пусто</div>
+            <p style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">Итого: <span id="totalPrice">0</span> ₽</p>
+            <button class="submit-btn" style="width:100%; margin-top: 20px;" onclick="checkout()">Оформить заказ</button>
+            <button class="control-btn" onclick="clearCart()" style="width: 100%; margin-top: 10px; background: #522;">Очистить корзину</button>
         </div>
-        
-        <div class="product-grid" id="productsContainer">
-            </div>
     </main>
 
     <footer>
@@ -54,10 +54,11 @@
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
+
     <script src="main.js"></script>
     <script>
-        // Обновление счетчика в колокольчике при загрузке
-        document.addEventListener('DOMContentLoaded', updateCartDisplay); 
+        // При загрузке страницы корзины обновляем ее содержимое
+        document.addEventListener('DOMContentLoaded', updateCartDisplay);
     </script>
 </body>
 </html>

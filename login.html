@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Каталог</title>
+    <title>Панель управления</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="images/logo.png">
 </head>
@@ -33,15 +33,13 @@
     </header>
 
     <main>
-        <h2>Каталог оборудования</h2>
-        <div style="margin-bottom: 30px; display: flex; gap: 10px; justify-content: flex-start; align-items: center;">
-            <button class="control-btn" onclick="sortGoods('asc')" style="width: auto; display: inline-block;">Сорт: Дешевле</button>
-            <button class="control-btn" onclick="sortGoods('desc')" style="width: auto; display: inline-block;">Сорт: Дороже</button>
-            <a href="cart.html" class="control-btn" style="width: auto; margin-left: auto;">Перейти в корзину →</a>
+        <h2 style="text-align: center; margin-bottom: 30px;">Панель администратора</h2>
+        <div class="login-container">
+            <h3>🔑 Доступ к системе</h3>
+            <p style="margin-bottom: 20px; color: #888;">Для входа используйте учетную запись администратора</p>
+            <button class="control-btn" onclick="startAdminLogin()">Войти как Админ <span>➜</span></button>
+            <button class="control-btn" onclick="checkRegistration()">Регистрация <span>➜</span></button>
         </div>
-        
-        <div class="product-grid" id="productsContainer">
-            </div>
     </main>
 
     <footer>
@@ -54,10 +52,7 @@
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
+
     <script src="main.js"></script>
-    <script>
-        // Обновление счетчика в колокольчике при загрузке
-        document.addEventListener('DOMContentLoaded', updateCartDisplay); 
-    </script>
 </body>
 </html>
