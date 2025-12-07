@@ -14,12 +14,18 @@ setInterval(() => {
     }
 }, 3000);
 
-if (bell) {
+// Обработчик клика
+if (bell) { // Проверяем, существует ли колокольчик
     bell.addEventListener('click', () => {
-        if (notifyPaused) return;
+        if (notifyPaused) return; // Если уже на паузе, ничего не делаем
+
         notifyPaused = true;
         bell.classList.add('paused');
+        
+        // Показываем, что уведомления скрыты
         showNotification({ content: "🔕 Уведомления скрыты" });
+        
+        // Через 10 секунд снимаем паузу
         setTimeout(() => {
             notifyPaused = false;
             bell.classList.remove('paused');
@@ -27,13 +33,30 @@ if (bell) {
         }, 10000);
     });
 }
-
 function showNotification({ content }) {
     const note = document.createElement('div');
     note.className = 'notification-toast';
     note.innerHTML = `${content} <span style="margin-left:10px; cursor:pointer;" onclick="this.parentElement.remove()">✖</span>`;
     document.body.appendChild(note);
     setTimeout(() => note.remove(), 3000);
+}
+
+window.toggleNotifications = function() {
+    const toasts = document.querySelectorAll('.notification-toast');
+    if (toasts.length === 0) {
+        showNotification({ content: "ℹ️ Нет текущих уведомлений." });
+        return;
+    }
+
+    const isVisible = toasts[0].style.display !== 'none';
+
+    if (isVisible) {
+        toasts.forEach(toast => toast.style.display = 'none');
+        showNotification({ content: "🔕 Все уведомления скрыты." });
+    } else {
+        toasts.forEach(toast => toast.style.display = 'block');
+        showNotification({ content: "🔔 Уведомления снова видны." });
+    }
 }
 
 // ==========================================================================
@@ -84,8 +107,9 @@ const initialProducts = [
         desc: "Идеальное решение 2в1: кофе из зерен и холодные снеки." 
     },
     { 
+        // ИЗМЕНЕНИЕ ПУТИ К ИЗОБРАЖЕНИЮ
         id: 4, name: "AQUATIC WA-400N", price: 218800, 
-        img: "images/water vending.jpg",
+        img: "images/avtomat.png",
         desc: "Автомат очистки и продажи воды. Производительность: 2250 л/сутки. Габариты: 700х600х1850 мм. Вес: 150 кг." 
     }
 ];
@@ -348,33 +372,140 @@ window.checkout = function() {
    5. ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ (Прокрутка Фавиконки)
    ========================================================================== */
 
+let faviconScrollInterval = null;
+const icons = ['☕', '🛒', '💰', '💡'];
+let index = 0;
+const defaultFavicon = document.querySelector("link[rel*='icon']");
+
+// Инициализация или получение элемента для фавиконки
+let dynamicFavicon = document.querySelector("link[id='dynamicFavicon']");
+if (!dynamicFavicon) {
+    dynamicFavicon = document.createElement('link');
+    dynamicFavicon.rel = 'icon';
+    dynamicFavicon.type = 'image/svg+xml';
+    dynamicFavicon.id = 'dynamicFavicon';
+    document.head.appendChild(dynamicFavicon);
+}
+
+
 function startFaviconScroll() {
-    // Иконки для прокрутки: Кофе, Корзина, Деньги, Лампочка
-    const icons = ['☕', '🛒', '💰', '💡']; 
-    let index = 0;
-    
-    // Создаем новый элемент <link> для фавиконки
-    const favicon = document.createElement('link');
-    favicon.rel = 'icon';
-    favicon.type = 'image/svg+xml'; 
+    if (faviconScrollInterval !== null) return; // Уже запущено
 
-    // Удаляем старый фавикон (если он был установлен через HTML)
-    const existingFavicon = document.querySelector("link[rel*='icon']");
-    if (existingFavicon) {
-        existingFavicon.remove();
-    }
-    
-    document.head.appendChild(favicon);
+    // Установка первой иконки сразу
+    updateFaviconIcon();
 
-    setInterval(() => {
-        const icon = icons[index];
-        // Генерация SVG с нужной иконкой
-        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="90%" font-size="90" dominant-baseline="baseline" text-anchor="middle">${icon}</text></svg>`;
-        favicon.href = 'data:image/svg+xml;base64,' + btoa(svg);
-        
-        index = (index + 1) % icons.length;
+    faviconScrollInterval = setInterval(() => {
+        updateFaviconIcon();
     }, 1000); // Смена иконки каждую секунду
 }
 
-// Запускаем прокрутку фавиконки при загрузке страницы
-document.addEventListener('DOMContentLoaded', startFaviconScroll);
+function updateFaviconIcon() {
+    const icon = icons[index];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="90%" font-size="90" dominant-baseline="baseline" text-anchor="middle">${icon}</text></svg>`;
+    dynamicFavicon.href = 'data:image/svg+xml;base64,' + btoa(svg);
+    index = (index + 1) % icons.length;
+}
+
+function stopFaviconScroll() {
+    if (faviconScrollInterval !== null) {
+        clearInterval(faviconScrollInterval);
+        faviconScrollInterval = null;
+    }
+    // Возврат к стандартной фавиконке (если она есть)
+    if (defaultFavicon) {
+        dynamicFavicon.href = defaultFavicon.href;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const logoArea = document.querySelector('.logo');
+    if (logoArea) {
+        logoArea.addEventListener('mouseover', startFaviconScroll);
+        logoArea.addEventListener('mouseout', stopFaviconScroll);
+    }
+});
+
+
+/* ==========================================================================
+   6. ФУНКЦИОНАЛ КОРЗИНЫ / ОФОРМЛЕНИЕ ЗАКАЗА
+   ========================================================================== */
+
+// Функция оформления заказа
+window.checkout = function() {
+    if (typeof cart === 'undefined' || cart.length === 0) {
+        showNotification({ content: "🛒 Корзина пуста. Добавьте товары перед оформлением." });
+        return;
+    }
+
+    let orderDetails = "Ваш заказ:\n";
+    let total = 0;
+    cart.forEach(item => {
+        orderDetails += `- ${item.name} (${item.price} ₽)\n`;
+        total += item.price;
+    });
+    orderDetails += `\nИтого: ${total} ₽`;
+
+    alert(orderDetails);
+    
+    // Имитация отправки заказа
+    showNotification({ content: `✅ Заказ на сумму ${total} ₽ оформлен!` });
+    
+    // Очищаем корзину после оформления заказа
+    if (typeof clearCart !== 'undefined') clearCart();
+    // Принудительно обновляем содержимое корзины на странице cart.html
+    if (document.getElementById('cartItemsList') && typeof updateCartDisplay !== 'undefined') updateCartDisplay(); 
+}
+
+
+// 7. АВТОЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПОСЛЕ КЛИКА
+document.addEventListener('DOMContentLoaded', () => {
+    // Получаем все ссылки внутри навигационного списка
+    const navLinks = document.querySelectorAll('.nav-list a');
+    const menuCheck = document.getElementById('menu-check');
+
+    if (navLinks.length > 0 && menuCheck) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // При клике на ссылку, снимаем галочку с чекбокса, 
+                // что приводит к скрытию мобильного меню через CSS
+                menuCheck.checked = false;
+            });
+        });
+    }
+});
+
+/* ==========================================================================
+   ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+    const navList = document.getElementById('navList');      // Ваш список ссылок
+    const menuToggle = document.getElementById('menuToggle'); // Ваша кнопка (Label)
+    const navLinks = document.querySelectorAll('.nav-list a'); // Ваши ссылки
+
+    // 1. Логика открытия/закрытия меню по клику на бургер
+    if (menuToggle && navList) {
+        menuToggle.addEventListener('click', () => {
+            // Переключаем класс 'open' на списке и кнопке
+            navList.classList.toggle('open');
+            menuToggle.classList.toggle('open'); 
+        });
+    }
+    
+    // 2. Логика автозакрытия меню при переходе по ссылке
+    if (navLinks.length > 0 && navList && menuToggle) {
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // При клике на ссылку, принудительно убираем класс 'open'
+                // Это закроет меню, прежде чем произойдет переход на новую страницу.
+                navList.classList.remove('open');
+                menuToggle.classList.remove('open');
+            });
+        });
+    }
+
+    // Дополнительный фикс: закрываем меню при загрузке страницы (для кнопки "Назад")
+    if (navList && navList.classList.contains('open')) {
+         navList.classList.remove('open');
+         if (menuToggle) menuToggle.classList.remove('open');
+    }
+});

@@ -25,8 +25,8 @@
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Контакты</a></li>
-                    <li><a href="cart.html">🛒 Корзина</a></li>
-                    <li><a href="login.html" class="nav-login-btn">🔒 Войти</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="login.html" class="nav-login-btn"> Личный кабинет</a></li>
                 </ul>
             </nav>
         </div>
@@ -49,7 +49,7 @@
                     <textarea id="message" name="message" rows="5" required></textarea>
                 </div>
                 
-                <div style="background:rgba(0,0,0,0.3); padding:15px; border-radius:8px; border:1px solid #333; text-align:center;">
+                <div class="captcha-block-wrapper">
                     <p style="color:#aaa;">Код с картинки:</p>
                     <div id="captchaText" style="font-size:1.5rem; letter-spacing:3px; background:#333; padding:5px 15px; border-radius:5px; display:inline-block; font-family:monospace;">CODE</div>
                     <div style="display:flex; gap:10px; margin-top:10px;">
@@ -58,7 +58,7 @@
                     </div>
                     <p id="captchaError" style="color:#ff5252; display:none; margin-top:5px;">Ошибка!</p>
                 </div>
-                <button type="submit" id="submitBtn" class="submit-btn" disabled style="width:100%; margin-top:15px;">Отправить заявку</button>
+                <<button type="submit" id="submitBtn" class="submit-btn" disabled>Отправить заявку</button>
             </form>
         </div>
     </main>

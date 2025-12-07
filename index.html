@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VendingWorld - Главная</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="icon" type="image/png" href="images/logo.png"> 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 
     <header>
         <div class="header-container">
-            <a href="index.html" class="logo">
+            <a href="index.html" class="logo"> 
                 <span class="logo-circle"><img src="images/logo.png" alt="Logo" class="logo-img"></span>
                 <span class="logo-text">VendingWorld</span>
             </a>
@@ -28,8 +28,8 @@
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Контакты</a></li>
-                    <li><a href="cart.html">🛒 Корзина</a></li>
-                    <li><a href="login.html" class="nav-login-btn">🔒 Войти</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                    <li><a href="login.html" class="nav-login-btn">Личный кабинет</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,33 +38,34 @@
     <main>
         <section class="hero-section">
             <div class="hero-content">
-                <h1>VendingWorld</h1>
-                <p>Торговые автоматы нового поколения для вашего бизнеса.</p>
+                <h1>Вендинг будущего уже здесь.</h1>
+                <p>Начните свой бизнес с самыми надежными и технологичными торговыми автоматами в России.</p>
                 <a href="catalog.html" class="cta-button">Смотреть каталог</a>
-            </div>
-            <div class="hero-image">
-                <img src="images/image_a354be.png" alt="Современный торговый автомат">
             </div>
         </section>
 
         <section class="features-section">
             <h2>Наши преимущества</h2>
             <div class="features-grid">
+                
                 <article class="feature-card">
-                    <img src="images/image_558665.png" alt="Иконка 'Технологии'">
-                    <h3>Инновационные технологии</h3>
-                    <p>Принимаем любые способы оплаты: карты, NFC, QR-коды.</p>
-                </article>
-                <article class="feature-card">
-                    <img src="images/image_550add.png" alt="Иконка 'Мониторинг'">
-                    <h3>Удаленный мониторинг</h3>
-                    <p>Следите за остатками и состоянием автомата в реальном времени через мобильное приложение.</p>
-                </article>
-                <article class="feature-card">
-                    <img src="images/image_55831e.png" alt="Иконка 'Надежность'">
+                    <img src="images/Reliability.jpg" alt="Иконка 'Надежность'">
                     <h3>Надежность и сервис</h3>
                     <p>Гарантия 2 года и круглосуточная техническая поддержка по всей стране.</p>
                 </article>
+
+                <article class="feature-card">
+                    <img src="images/Technologia.jpg" alt="Иконка 'Технологии'">
+                    <h3>Современные технологии</h3>
+                    <p>Автоматы с телеметрией, NFC-оплатой и интерактивными дисплеями.</p>
+                </article>
+
+                <article class="feature-card">
+                    <img src="images/Monitoring.png" alt="Иконка 'Мониторинг'">
+                    <h3>Удаленный мониторинг</h3>
+                    <p>Контролируйте продажи и остатки товаров со своего смартфона в режиме 24/7.</p>
+                </article>
+
             </div>
         </section>
 
@@ -93,7 +94,21 @@
             <p>© 2025 VendingWorld. Все права защищены.</p>
         </div>
     </footer>
-
     <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+             // 2. Логика для автоматического закрытия меню (из предыдущего кода)
+            document.querySelectorAll('.nav-list a').forEach(item => {
+                item.addEventListener('click', () => {
+                    const navList = document.getElementById('navList');
+                    const menuToggle = document.getElementById('menuToggle');
+                    if (navList && navList.classList.contains('open') && window.innerWidth <= 900) {
+                        navList.classList.remove('open');
+                        menuToggle.classList.remove('open');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

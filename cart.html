@@ -25,22 +25,22 @@
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="faq.html">FAQ</a></li>
                     <li><a href="contact.html">Контакты</a></li>
-                    <li><a href="cart.html" style="color:var(--primary-color);">🛒 Корзина</a></li>
-                    <li><a href="login.html" class="nav-login-btn">🔒 Войти</a></li>
+                    <li><a href="cart.html" style="color:var(--primary-color);">Корзина</a></li>
+                    <li><a href="login.html" class="nav-login-btn"> Личный кабинет</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <h2>🛒 Ваша Корзина</h2>
+        <h2>Ваша Корзина</h2>
 
         <div class="cart-area" id="cartDropZone">
             <h3>Содержимое корзины</h3>
             <div id="cartItemsList">Пусто</div>
             <p style="margin-top: 20px; font-weight: bold; font-size: 1.2rem;">Итого: <span id="totalPrice">0</span> ₽</p>
-            <button class="submit-btn" style="width:100%; margin-top: 20px;" onclick="checkout()">Оформить заказ</button>
-            <button class="control-btn" onclick="clearCart()" style="width: 100%; margin-top: 10px; background: #522;">Очистить корзину</button>
+            <button class="submit-btn" onclick="checkout()">Оформить заказ</button>
+            <button class="control-btn" onclick="clearCart()" style="background: #522;">Очистить корзину</button>
         </div>
     </main>
 
