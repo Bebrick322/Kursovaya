@@ -137,10 +137,10 @@ header {
     margin-left: auto;
 }
 
-
 .menu-check {
-        display: none;
-    }
+    display: none;
+}
+
 /* Навигация (десктоп) */
 .nav-list {
     display: flex;
@@ -168,6 +168,109 @@ header {
 }
 .nav-login-btn:hover {
     background: #8bf6ff;
+}
+
+/* --- СТИЛИ ДЛЯ БЛОКА "ИСТОРИЯ ВЕНДИНГА" (index.html) --- */
+
+/* Контейнер для текста и изображения */
+.vending-history .history-content {
+    display: flex;
+    gap: 40px; /* Отступ между текстом и фото */
+    align-items: flex-start; 
+    margin-top: 30px;
+}
+
+/* Блок текста */
+.vending-history .history-text {
+    flex: 1; /* Текст занимает большую часть доступного места */
+    max-width: 60%; /* Ограничим ширину текста для лучшей читаемости на широких экранах */
+}
+
+/* ОГРАНИЧЕНИЕ РАЗМЕРА ФОТО */
+.vending-history .history-image {
+    flex-shrink: 0; 
+    width: 100%;
+    max-width: 450px; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Само изображение масштабируется по контейнеру */
+.vending-history .history-image img {
+    display: block;
+    width: 100%; 
+    height: auto;
+}
+
+
+/* --- СТИЛИ ДЛЯ КНОПОК .control-btn (ВТОРИЧНЫЕ) --- */
+.control-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #333; /* Темный фон */
+    color: var(--text-light);
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    text-align: center;
+    /* Убедимся, что текст внутри кнопки не переносится */
+    white-space: nowrap; 
+}
+.control-btn:hover {
+    background: #444;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* --- КОРРЕКТИРОВКА ДЛЯ ЛИЧНОГО КАБИНЕТА (login.html) --- */
+
+.login-container {
+    max-width: 400px;
+    margin: 40px auto; /* Центрируем контейнер */
+    padding: 25px;
+    background: var(--bg-card);
+    border-radius: 10px;
+    border: 1px solid #333;
+    text-align: center; /* Центрируем текст внутри */
+}
+/* Кнопки в Личном Кабинете (login.html) */
+.login-container .control-btn {
+    width: 280px; /* Увеличил ширину для лучшего вида */
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* Сделаем их блочными для корректного центрирования с margin: auto */
+    display: block; 
+    margin-bottom: 15px; /* Добавим небольшой отступ между кнопками */
+    text-transform: uppercase;
+}
+/* Стили для стрелки */
+.login-container .control-btn span {
+    margin-left: 10px;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+.login-container .control-btn:hover span {
+    transform: translateX(5px);
+}
+
+
+/* --- КОРРЕКТИРОВКА ДЛЯ КАТАЛОГА (catalog.html) --- */
+
+.catalog-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+}
+.catalog-controls a.control-btn {
+    /* Эта строка перемещает кнопку "Перейти в корзину" вправо */
+    margin-left: auto;
 }
 
 /* --- СТИЛИ ДЛЯ СТРАНИЦЫ КОНТАКТОВ --- */
@@ -753,7 +856,7 @@ footer {
 .notification-bell {
    /* Фиксируем колокольчик в нижнем правом углу */
     position: fixed; 
-    bottom: 20px; /* Отступ снизу */
+    bottom: 20px; /* ИЗМЕНЕНО: Вернули в низ */
     right: 20px; /* Отступ справа */
     
     background: var(--primary-color);
@@ -797,7 +900,7 @@ footer {
 
 .notification-toast {
     position: fixed;
-    bottom: 20px;
+    top: 80px; /* ОСТАВЛЕНО: Уведомления по-прежнему вверху */
     right: 20px;
     background-color: #333;
     color: white;
@@ -809,6 +912,9 @@ footer {
     font-size: 0.9rem;
     border-left: 5px solid var(--primary-color);
 }
+
+
+
 
 /* --- MEDIA QUERIES (Адаптивность) --- */
 @media (max-width: 900px) {
@@ -858,6 +964,18 @@ footer {
         padding: 0 1rem;
     }
     
+    .vending-history .history-content {
+        flex-direction: column; /* Перестраиваем в вертикальный столбец */
+        align-items: center;
+    }
+    .vending-history .history-text {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .vending-history .history-image {
+        /* На мобильных устройствах снимаем жесткое ограничение, чтобы фото занимало всю ширину */
+        max-width: 100%;
+    }
     .nav-list {
         /* ИЗМЕНЕНИЕ: Скрытие и позиционирование для JS-логики */
         display: flex;
