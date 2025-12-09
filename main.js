@@ -1,62 +1,27 @@
 /* ==========================================================================
-   1. ОБЩИЙ ФУНКЦИОНАЛ (Уведомления и Мобильное Меню)
+   1. ОБЩИЙ ФУНКЦИОНАЛ (Уведомления)
    ========================================================================== */
-let notifyCount = 0;
-let notifyPaused = false;
-const bell = document.getElementById('notifyBell');
-const counter = document.getElementById('notifyCounter');
+// Глобальный контейнер для всех уведомлений (для настакивания)
+let notificationContainer = null;
 
-// Счетчик (каждые 3 сек)
-setInterval(() => {
-    if (!notifyPaused && counter) {
-        notifyCount++;
-        counter.textContent = notifyCount;
-    }
-}, 3000);
-
-// Обработчик клика
-if (bell) { // Проверяем, существует ли колокольчик
-    bell.addEventListener('click', () => {
-        if (notifyPaused) return; // Если уже на паузе, ничего не делаем
-
-        notifyPaused = true;
-        bell.classList.add('paused');
-        
-        // Показываем, что уведомления скрыты
-        showNotification({ content: "🔕 Уведомления скрыты" });
-        
-        // Через 10 секунд снимаем паузу
-        setTimeout(() => {
-            notifyPaused = false;
-            bell.classList.remove('paused');
-            showNotification({ content: "🔔 Уведомления активны" });
-        }, 10000);
-    });
-}
+// Функция для отображения всплывающих уведомлений (toast)
 function showNotification({ content }) {
+    // Создаем контейнер стека, если его еще нет
+    if (!notificationContainer) {
+        notificationContainer = document.createElement('div');
+        notificationContainer.id = 'notificationStack';
+        document.body.appendChild(notificationContainer);
+    }
+
     const note = document.createElement('div');
     note.className = 'notification-toast';
-    note.innerHTML = `${content} <span style="margin-left:10px; cursor:pointer;" onclick="this.parentElement.remove()">✖</span>`;
-    document.body.appendChild(note);
-    setTimeout(() => note.remove(), 3000);
-}
+    // Добавляем крестик для ручного закрытия
+    note.innerHTML = `${content} <span style="margin-left:10px; cursor:pointer;" onclick="this.parentElement.remove()">✖</span>`; 
+    
+    // Добавляем новое уведомление в НАЧАЛО контейнера (чтобы оно было сверху)
+    notificationContainer.prepend(note);
 
-window.toggleNotifications = function() {
-    const toasts = document.querySelectorAll('.notification-toast');
-    if (toasts.length === 0) {
-        showNotification({ content: "ℹ️ Нет текущих уведомлений." });
-        return;
-    }
-
-    const isVisible = toasts[0].style.display !== 'none';
-
-    if (isVisible) {
-        toasts.forEach(toast => toast.style.display = 'none');
-        showNotification({ content: "🔕 Все уведомления скрыты." });
-    } else {
-        toasts.forEach(toast => toast.style.display = 'block');
-        showNotification({ content: "🔔 Уведомления снова видны." });
-    }
+    // Уведомления не удаляются автоматически, чтобы они настакивались.
 }
 
 
@@ -161,11 +126,7 @@ window.updateCartDisplay = function() {
     const listElement = document.getElementById('cartItemsList');
     const totalElement = document.getElementById('totalPrice');
 
-    if (bell && counter) {
-        // Обновление счетчика в колокольчике
-        const totalItems = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
-        counter.textContent = totalItems;
-    }
+    // Логика обновления счетчика колокольчика удалена
 
     if (!listElement || !totalElement) return;
 
@@ -340,12 +301,6 @@ window.startAdminLogin = function() {
     } else showNotification({ content: " Неверный пароль" });
 }
 
-// Заглушка для функции оформления заказа на cart.html
-window.checkout = function() {
-    alert('Функционал оформления заказа в разработке.');
-}
-
-
 
 document.addEventListener('DOMContentLoaded', () => {
     const logoArea = document.querySelector('.logo');
@@ -362,23 +317,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Функция оформления заказа
 window.checkout = function() {
-    if (typeof cart === 'undefined' || cart.length === 0) {
+    // Используем Object.keys(cart).length для проверки, так как cart - это объект
+    if (typeof cart === 'undefined' || Object.keys(cart).length === 0) { 
         showNotification({ content: "🛒 Корзина пуста. Добавьте товары перед оформлением." });
         return;
     }
 
     let orderDetails = "Ваш заказ:\n";
     let total = 0;
-    cart.forEach(item => {
-        orderDetails += `- ${item.name} (${item.price} ₽)\n`;
-        total += item.price;
+    
+    // Итерация по значениям объекта cart
+    Object.values(cart).forEach(item => {
+        const itemSubtotal = item.price * item.qty; // Учитываем количество
+        // Используем toLocaleString для форматирования чисел
+        orderDetails += `- ${item.name} (${item.qty} шт.) - ${itemSubtotal.toLocaleString()} ₽\n`; 
+        total += itemSubtotal;
     });
-    orderDetails += `\nИтого: ${total} ₽`;
+    orderDetails += `\nИтого: ${total.toLocaleString()} ₽`;
 
     alert(orderDetails);
     
     // Имитация отправки заказа
-    showNotification({ content: `✅ Заказ на сумму ${total} ₽ оформлен!` });
+    showNotification({ content: `✅ Заказ на сумму ${total.toLocaleString()} ₽ оформлен!` });
     
     // Очищаем корзину после оформления заказа
     if (typeof clearCart !== 'undefined') clearCart();
@@ -405,13 +365,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы и блокировка скролла)
+   ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы)
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    // Используем ID, как в вашем HTML
-    const navList = document.getElementById('navList');      
-    const menuToggle = document.getElementById('menuToggle'); 
-    const navLinks = document.querySelectorAll('.nav-list a'); 
+    const navList = document.getElementById('navList');      // Ваш список ссылок
+    const menuToggle = document.getElementById('menuToggle'); // Ваша кнопка (Label)
+    const navLinks = document.querySelectorAll('.nav-list a'); // Ваши ссылки
 
     // 1. Логика открытия/закрытия меню по клику на бургер
     if (menuToggle && navList) {
@@ -419,9 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Переключаем класс 'open' на списке и кнопке
             navList.classList.toggle('open');
             menuToggle.classList.toggle('open'); 
-            
-            // БЛОКИРОВКА СКРОЛЛА на body
-            document.body.classList.toggle('no-scroll', navList.classList.contains('open'));
         });
     }
     
@@ -429,20 +385,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navLinks.length > 0 && navList && menuToggle) {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                // Закрываем меню
+                // При клике на ссылку, принудительно убираем класс 'open'
+                // Это закроет меню, прежде чем произойдет переход на новую страницу.
                 navList.classList.remove('open');
                 menuToggle.classList.remove('open');
-                
-                // СНЯТИЕ БЛОКИРОВКИ СКРОЛЛА
-                document.body.classList.remove('no-scroll');
             });
         });
     }
 
-    // Дополнительный фикс: закрываем меню при загрузке страницы
+    // Дополнительный фикс: закрываем меню при загрузке страницы (для кнопки "Назад")
     if (navList && navList.classList.contains('open')) {
          navList.classList.remove('open');
          if (menuToggle) menuToggle.classList.remove('open');
-         document.body.classList.remove('no-scroll');
     }
 });

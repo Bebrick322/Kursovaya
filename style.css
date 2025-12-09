@@ -19,7 +19,9 @@ body {
     line-height: 1.6;
     padding-top: 70px;
     display: flex; flex-direction: column; min-height: 100vh;
+    overflow-x: hidden;
 }
+
 
 main {
     flex: 1; width: 100%; max-width: 1200px; margin: 0 auto; padding: 2rem;
@@ -55,7 +57,7 @@ header {
 }
 
 .header-container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
@@ -176,7 +178,7 @@ header {
 
 /* Общий контейнер для информации */
 .contact-info {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto 30px;
     padding: 25px;
     background: var(--bg-card);
@@ -195,7 +197,7 @@ header {
 
 /* Стили для формы обратной связи */
 .feedback-form-section {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 25px;
     background: var(--bg-card);
@@ -260,7 +262,7 @@ input:focus, textarea:focus {
 /* --- СТИЛИЗАЦИЯ КОНТАКТНОЙ ФОРМЫ И БЛОКА КАПЧИ --- */
 
 .feedback-form-section {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 25px;
     background: var(--bg-card);
@@ -400,7 +402,7 @@ input:focus, textarea:focus {
 }
 .hero-content {
     z-index: 10;
-    max-width: 800px;
+    max-width: 100%;
     padding: 20px;
 }
 
@@ -449,9 +451,9 @@ input:focus, textarea:focus {
 
 /* 🖼️ ОГРАНИЧЕНИЕ РАЗМЕРА ФОТО (Ваше главное изменение) */
 .vending-history .history-image {
-    flex-shrink: 0; 
-    width: 100%;
-    max-width: 450px; 
+   flex-shrink: 0; 
+    max-width: 40%; 
+    width: auto; /* Позволяем ему быть адаптивным в пределах max-width */
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -768,7 +770,7 @@ footer {
     border-top: 1px solid #222; 
 }
 .footer-container {
-    max-width: 1200px; 
+    max-width: 100%; 
     margin: 0 auto; 
     padding: 0 2rem 2rem;
     display: grid; 
@@ -804,53 +806,9 @@ footer {
 }
 
 /* --- УВЕДОМЛЕНИЯ / TOAST --- */
-.notification-bell {
-    position: fixed; 
-    bottom: 20px; 
-    right: 20px; 
-    background: var(--primary-color);
-    color: #111; 
-    font-size: 1.5rem;
-    padding: 10px 12px;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    z-index: 9999; 
-    transition: transform 0.2s, background 0.2s;
-    line-height: 1; 
-}
-.notification-bell:hover {
-    transform: scale(1.05);
-    background: #8bf6ff;
-}
-
-/* Стили для счетчика внутри колокольчика */
-.notification-counter {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background: #f44336; 
-    color: white;
-    font-size: 0.75rem;
-    padding: 2px 6px;
-    border-radius: 10px;
-    font-weight: bold;
-    line-height: 1;
-    min-width: 15px;
-    text-align: center;
-    border: 2px solid var(--bg-dark);
-}
-
-/* Стиль для состояния "Приостановлено" */
-.notification-bell.paused {
-    background: #616161; 
-}
-
 
 .notification-toast {
-    position: fixed;
-    top: 80px; 
-    right: 20px;
+    width: 100%; 
     background-color: #333;
     color: white;
     padding: 15px 20px;
@@ -861,173 +819,145 @@ footer {
     font-size: 0.9rem;
     border-left: 5px solid var(--primary-color);
 }
-.no-scroll {
-    /* 1. Скрывает полосу прокрутки */
-    overflow: hidden; 
-    
-    /* 2. Самый надежный способ устранить сдвиг */
-    position: fixed; 
-    
-    /* 3. Удерживает body на месте по всей ширине */
-    width: 100%; 
-    
-    /* 4. Запрет горизонтального скролла, если меню сдвигает контент */
-    overflow-x: hidden;
-}
-/* Добавьте это правило рядом с .no-scroll */
-html.no-scroll {
-    overflow: hidden;
+
+/* --- СТИЛИ ДЛЯ КОНТЕЙНЕРА СТЕКА УВЕДОМЛЕНИЙ --- */
+#notificationStack {
+    position: fixed;
+    top: 80px; /* Отступ от шапки */
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column; /* Уведомления будут выстраиваться сверху вниз */
+    gap: 10px; /* Расстояние между уведомлениями */
+    max-height: 80vh; /* Ограничиваем высоту, чтобы не занимать весь экран */
+    overflow-y: auto; /* Добавляем прокрутку, если уведомлений слишком много */
+    width: 300px; /* Фиксированная ширина стека */
 }
 
+/* Убираем полосу прокрутки для более чистого вида */
+#notificationStack::-webkit-scrollbar {
+    display: none;
+}
+#notificationStack {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+
+/* --- СТИЛИ ДЛЯ КОНТЕЙНЕРА СТЕКА УВЕДОМЛЕНИЙ --- */
+#notificationStack {
+    position: fixed;
+    top: 80px; /* Отступ от шапки */
+    right: 20px;
+    z-index: 3000;
+    display: flex;
+    flex-direction: column; /* Уведомления будут выстраиваться сверху вниз */
+    gap: 10px; /* Расстояние между уведомлениями */
+    max-height: 80vh; /* Ограничиваем высоту, чтобы не занимать весь экран */
+    overflow-y: auto; /* Добавляем прокрутку, если уведомлений слишком много */
+    width: 300px; /* Фиксированная ширина стека */
+}
+
+/* Убираем полосу прокрутки для более чистого вида */
+#notificationStack::-webkit-scrollbar {
+    display: none;
+}
+#notificationStack {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
 /* ==========================================================
    --- MEDIA QUERIES (Адаптивность) ---
    ========================================================== */
 
-/* 1. Планшеты (до 900px) */
-@media (max-width: 900px) {
-    main {
-        padding: 1.5rem;
-    }
-
-    /* --- НАВИГАЦИЯ (Мобильное меню) --- */
-    .header-container {
-        padding: 0 1rem;
-    }
-    .menu-toggle {
-        display: block; 
-        position: relative;
-        z-index: 1010; 
-        width: 30px;
-        height: 25px;
-        padding: 0;
-        margin-left: 20px;
-        color: #ff0000;
-    }
-
-    .nav-list {
-        /* Стили для скрытого состояния, управляется JS-классом .open */
-        flex-direction: column;
+/* =======================================================
+   1. ПЛАНШЕТЫ И ТЕЛЕФОНЫ (Максимальная ширина 900px)
+   ======================================================= */
+@media (max-width: 900px) { 
+    
+    /* Стили для контейнера бургера */
+    #menuToggle, .menu-toggle {
+        display: flex !important; 
+        align-items: center; /* Центрирует внутренний спан вертикально */
         justify-content: center;
-        align-items: center;
-        background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
-        position: fixed; 
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh; 
-        padding: 80px 2rem 2rem;
-        visibility: hidden;
-        opacity: 0;
-        transform: translateX(-100%); 
-        transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
-        z-index: 1005;
-        gap: 0;
+        width: 30px; 
+        height: 30px;
+        position: relative;
+        z-index: 99999 !important; 
+        cursor: pointer;
     }
 
-    /* Состояние "open" (управляемое JS) */
-    .nav-list.open {
-        visibility: visible;
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    .nav-list a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 1rem 0;
-        font-size: 1.5rem;
-        border-bottom: 1px solid rgba(79, 195, 247, 0.2);
-    }
-    .nav-list li:last-child a {
-        border-bottom: none;
-    }
-
-    /* Анимация Бургера (переносим сюда для видимости) */
+    
+    /* Позиционирование линий */
     .burger-icon {
-        position: absolute; top: 50%; transform: translateY(-50%);
-    }
-    .burger-icon::before { top: -8px; }
-    .burger-icon::after { top: 8px; }
+        font-size: 0; /* Убираем возможный строчный текст, который вылезал */
+        line-height: 0;
 
-    /* --- СЕКЦИИ --- */
+        display: block;
+        position: absolute; 
+        width: 100%;
+        height: 3px; 
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 0.3s ease-in-out;
+    }
+    .burger-icon::before,
+    .burger-icon::after { 
+        content: '';
+        display: block;
+        position: absolute; 
+        width: 100%;
+        height: 3px; 
+        background-color: inherit;
+    }
+
+
+    /* Стили для мобильного меню */
+    .nav-list {
+        /* Убедитесь, что меню скрыто по умолчанию и имеет transition */
+        position: fixed;
+        top: 0;
+        right: 0; /* Если меню выезжает справа */
+        bottom: 0;
+        width: 100vw; /* Занимает всю ширину окна просмотра */
+        transform: translateX(100%); /* Скрыто за правым краем */
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+        /* ... остальные стили меню ... */
+    }
+
+    /* Когда меню открыто */
+    .nav-list.open {
+        transform: translateX(0); /* Выезжает на экран */
+    }
+    
+    /* Скрываем обычную навигацию */
+    .header-nav { /* Если ваша обычная навигация имеет такой класс */
+        display: none;
+    }
+
     .vending-history .history-content {
-        flex-direction: column; 
-        align-items: center;
-    }
-    .vending-history .history-text {
-        max-width: 100%;
-        margin-bottom: 20px;
-    }
-    .vending-history .history-image {
-        max-width: 70%; /* Уменьшаем фото на планшетах */
-    }
-    
-    /* Карточки каталога */
-    .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        flex-direction: column; /* Stack items vertically */
+        gap: 20px;
     }
 
-    /* Детальная страница товара */
-    .product-detail-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    .product-full-img {
-        max-width: 80%;
-    }
-}
-
-@media (max-width: 768px){
-    body, html {
-        overflow-x: hidden; /* Запрет горизонтального скролла */
-    }
-    .menu-toggle, #menuToggle { 
-        display: block !important; /* Принудительно показываем */
-        visibility: visible !important; /* Принудительно делаем видимым */
-        z-index: 9999; /* Самый высокий слой, чтобы перекрыть все */
-        opacity: 1; /* Полностью непрозрачный */
-        /* Убедитесь, что у него есть цвет, отличный от фона! */
-        color: #ff0000; /* Или любой контрастный цвет */
-    }
-}
-
-
-@media (max-width: 480px) {
-    main {
-        padding: 1rem;
-    }
-
-    .hero-section {
-        height: 250px;
-    }
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    .hero-content p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Увеличиваем фото автомата на странице товара (product.html) */
-    .product-full-img {
-        max-width: 100%; /* Фото занимает всю ширину на мобильном */
-        flex: none;
-        margin-bottom: 15px;
-    }
-
-    /* Карточки каталога (один столбец) */
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    /* Фото в секции "История вендинга" на всю ширину */
+    /* Заставляем текст и изображение занимать всю доступную ширину */
+    .vending-history .history-text,
     .vending-history .history-image {
         max-width: 100%; 
     }
 
-    /* Подвал (Footer) */
-    .footer-container {
-        grid-template-columns: 1fr;
+}
+
+
+/* =======================================================
+   2. ТОЛЬКО ТЕЛЕФОНЫ (Максимальная ширина 480px)
+   ======================================================= */
+@media (max-width: 480px) { 
+    /* Здесь могут быть только те стили, которые МЕНЯЮТСЯ 
+       для очень маленьких экранов (например, размер шрифта) */
+    h1 {
+        font-size: 2em;
     }
+    /* ВСЕ СТИЛИ БУРГЕРА НАСЛЕДУЮТСЯ ОТ БЛОКА 900px */
 }
