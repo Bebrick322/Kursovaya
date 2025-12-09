@@ -91,7 +91,7 @@ header {
 /* --- ГЛАВНЫЙ БЛОК / ЛОГОТИП --- */
 .logo:hover .logo-img {
     transform: rotate(360deg);
-    transition: transform 1s ease-in-out; /* Реализуем вращение */
+    transition: transform 1s ease-in-out;
 }
 
 /* Изменения для кнопок в корзине (cart.html) */
@@ -116,10 +116,12 @@ header {
 }
 /* Кнопки в Личном Кабинете (login.html) */
 .login-container .control-btn {
-    width: 250px; /* Устанавливаем разумную ширину */
+    width: 250px; 
     max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 15px; 
+    display: block; 
 }
 
 /* Корректировка отображения кнопок сортировки в catalog.html */
@@ -137,10 +139,10 @@ header {
     margin-left: auto;
 }
 
-.menu-check {
-    display: none;
-}
 
+.menu-check {
+        display: none;
+    }
 /* Навигация (десктоп) */
 .nav-list {
     display: flex;
@@ -168,109 +170,6 @@ header {
 }
 .nav-login-btn:hover {
     background: #8bf6ff;
-}
-
-/* --- СТИЛИ ДЛЯ БЛОКА "ИСТОРИЯ ВЕНДИНГА" (index.html) --- */
-
-/* Контейнер для текста и изображения */
-.vending-history .history-content {
-    display: flex;
-    gap: 40px; /* Отступ между текстом и фото */
-    align-items: flex-start; 
-    margin-top: 30px;
-}
-
-/* Блок текста */
-.vending-history .history-text {
-    flex: 1; /* Текст занимает большую часть доступного места */
-    max-width: 60%; /* Ограничим ширину текста для лучшей читаемости на широких экранах */
-}
-
-/* ОГРАНИЧЕНИЕ РАЗМЕРА ФОТО */
-.vending-history .history-image {
-    flex-shrink: 0; 
-    width: 100%;
-    max-width: 450px; 
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* Само изображение масштабируется по контейнеру */
-.vending-history .history-image img {
-    display: block;
-    width: 100%; 
-    height: auto;
-}
-
-
-/* --- СТИЛИ ДЛЯ КНОПОК .control-btn (ВТОРИЧНЫЕ) --- */
-.control-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #333; /* Темный фон */
-    color: var(--text-light);
-    border: 1px solid #555;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
-    text-align: center;
-    /* Убедимся, что текст внутри кнопки не переносится */
-    white-space: nowrap; 
-}
-.control-btn:hover {
-    background: #444;
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-
-/* --- КОРРЕКТИРОВКА ДЛЯ ЛИЧНОГО КАБИНЕТА (login.html) --- */
-
-.login-container {
-    max-width: 400px;
-    margin: 40px auto; /* Центрируем контейнер */
-    padding: 25px;
-    background: var(--bg-card);
-    border-radius: 10px;
-    border: 1px solid #333;
-    text-align: center; /* Центрируем текст внутри */
-}
-/* Кнопки в Личном Кабинете (login.html) */
-.login-container .control-btn {
-    width: 280px; /* Увеличил ширину для лучшего вида */
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    /* Сделаем их блочными для корректного центрирования с margin: auto */
-    display: block; 
-    margin-bottom: 15px; /* Добавим небольшой отступ между кнопками */
-    text-transform: uppercase;
-}
-/* Стили для стрелки */
-.login-container .control-btn span {
-    margin-left: 10px;
-    transition: transform 0.2s;
-    display: inline-block;
-}
-.login-container .control-btn:hover span {
-    transform: translateX(5px);
-}
-
-
-/* --- КОРРЕКТИРОВКА ДЛЯ КАТАЛОГА (catalog.html) --- */
-
-.catalog-controls {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 30px;
-}
-.catalog-controls a.control-btn {
-    /* Эта строка перемещает кнопку "Перейти в корзину" вправо */
-    margin-left: auto;
 }
 
 /* --- СТИЛИ ДЛЯ СТРАНИЦЫ КОНТАКТОВ --- */
@@ -387,10 +286,31 @@ input:focus, textarea:focus {
 
 /* --- КОРРЕКТИРОВКА КНОПОК --- */
 
+/* --- СТИЛИ ДЛЯ КНОПОК .control-btn (ВТОРИЧНЫЕ) --- */
+.control-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #333; 
+    color: var(--text-light);
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    text-align: center;
+    white-space: nowrap; 
+    margin-bottom: 0; 
+}
+.control-btn:hover {
+    background: #444;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
 /* Кнопки в корзине (cart.html) */
 .cart-area .submit-btn,
 .cart-area .control-btn {
-    width: 280px; /* Фиксированная ширина */
+    width: 280px; 
     max-width: 100%;
     display: block;
     margin-left: auto;
@@ -409,7 +329,7 @@ input:focus, textarea:focus {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    margin-top: 15px; /* Возвращаем нужный отступ */
+    margin-top: 15px; 
 }
 /* Мобильное меню (скрыто на десктопе) */
 .menu-toggle {
@@ -511,11 +431,42 @@ input:focus, textarea:focus {
     background: #8bf6ff;
 }
 
+/* --- СТИЛИ ДЛЯ БЛОКА "ИСТОРИЯ ВЕНДИНГА" (index.html) --- */
+
+/* Контейнер для текста и изображения */
+.vending-history .history-content {
+    display: flex;
+    gap: 40px; 
+    align-items: flex-start; 
+    margin-top: 30px;
+}
+
+/* Блок текста */
+.vending-history .history-text {
+    flex: 1; 
+    max-width: 60%; 
+}
+
+/* 🖼️ ОГРАНИЧЕНИЕ РАЗМЕРА ФОТО (Ваше главное изменение) */
+.vending-history .history-image {
+    flex-shrink: 0; 
+    width: 100%;
+    max-width: 450px; 
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Само изображение масштабируется по контейнеру */
+.vending-history .history-image img {
+    display: block;
+    width: 100%; 
+    height: auto;
+}
 /* --- FEATURES SECTION --- */
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    /* ИЗМЕНЕНИЕ: Добавление отступа между блоками */
     gap: 30px; 
     margin-bottom: 2rem;
     text-align: center;
@@ -549,7 +500,6 @@ input:focus, textarea:focus {
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    /* ИЗМЕНЕНИЕ: Добавление отступа между карточками */
     gap: 25px; 
     margin-top: 2rem;
 }
@@ -584,7 +534,7 @@ input:focus, textarea:focus {
 .product-image img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Чтобы изображение полностью помещалось */
+    object-fit: contain; 
     transition: transform 0.3s;
 }
 
@@ -735,6 +685,7 @@ input:focus, textarea:focus {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: 1px solid #333;
+    text-align: center; 
 }
 
 .contact-form label {
@@ -854,21 +805,19 @@ footer {
 
 /* --- УВЕДОМЛЕНИЯ / TOAST --- */
 .notification-bell {
-   /* Фиксируем колокольчик в нижнем правом углу */
     position: fixed; 
-    bottom: 20px; /* ИЗМЕНЕНО: Вернули в низ */
-    right: 20px; /* Отступ справа */
-    
+    bottom: 20px; 
+    right: 20px; 
     background: var(--primary-color);
-    color: #111; /* Темный текст на светлом фоне */
+    color: #111; 
     font-size: 1.5rem;
     padding: 10px 12px;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    z-index: 9999; /* Чтобы колокольчик был поверх всего */
+    z-index: 9999; 
     transition: transform 0.2s, background 0.2s;
-    line-height: 1; /* Для лучшего центрирования текста */
+    line-height: 1; 
 }
 .notification-bell:hover {
     transform: scale(1.05);
@@ -880,7 +829,7 @@ footer {
     position: absolute;
     top: 0px;
     right: 0px;
-    background: #f44336; /* Красный цвет */
+    background: #f44336; 
     color: white;
     font-size: 0.75rem;
     padding: 2px 6px;
@@ -894,13 +843,13 @@ footer {
 
 /* Стиль для состояния "Приостановлено" */
 .notification-bell.paused {
-    background: #616161; /* Серый цвет, когда пауза */
+    background: #616161; 
 }
 
 
 .notification-toast {
     position: fixed;
-    top: 80px; /* ОСТАВЛЕНО: Уведомления по-прежнему вверху */
+    top: 80px; 
     right: 20px;
     background-color: #333;
     color: white;
@@ -912,73 +861,51 @@ footer {
     font-size: 0.9rem;
     border-left: 5px solid var(--primary-color);
 }
+.no-scroll {
+    /* 1. Скрывает полосу прокрутки */
+    overflow: hidden; 
+    
+    /* 2. Самый надежный способ устранить сдвиг */
+    position: fixed; 
+    
+    /* 3. Удерживает body на месте по всей ширине */
+    width: 100%; 
+    
+    /* 4. Запрет горизонтального скролла, если меню сдвигает контент */
+    overflow-x: hidden;
+}
+/* Добавьте это правило рядом с .no-scroll */
+html.no-scroll {
+    overflow: hidden;
+}
 
+/* ==========================================================
+   --- MEDIA QUERIES (Адаптивность) ---
+   ========================================================== */
 
-
-
-/* --- MEDIA QUERIES (Адаптивность) --- */
+/* 1. Планшеты (до 900px) */
 @media (max-width: 900px) {
-    /* Мобильное меню */
+    main {
+        padding: 1.5rem;
+    }
+
+    /* --- НАВИГАЦИЯ (Мобильное меню) --- */
+    .header-container {
+        padding: 0 1rem;
+    }
     .menu-toggle {
-        display: block; /* Важно: кнопка должна быть видна на мобильных */
-        cursor: pointer;
+        display: block; 
         position: relative;
-        z-index: 1010; /* Должен быть выше всех элементов навигации */
+        z-index: 1010; 
         width: 30px;
         height: 25px;
         padding: 0;
         margin-left: 20px;
+        color: #ff0000;
     }
 
-    /* Иконка (три линии) */
-    .burger-icon,
-    .burger-icon::before,
-    .burger-icon::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 3px;
-        background-color: var(--text-light); /* Белый/светлый цвет */
-        border-radius: 2px;
-        transition: all 0.3s ease-in-out;
-    }
-    .burger-icon {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-    }
-
-    .burger-icon::before {
-        top: -8px;
-    }
-
-    .burger-icon::after {
-        top: 8px;
-    }
-
-    /* Скрытие чекбокса */
-    .menu-check {
-        display: none;
-    }
-    .header-container {
-        padding: 0 1rem;
-    }
-    
-    .vending-history .history-content {
-        flex-direction: column; /* Перестраиваем в вертикальный столбец */
-        align-items: center;
-    }
-    .vending-history .history-text {
-        max-width: 100%;
-        margin-bottom: 20px;
-    }
-    .vending-history .history-image {
-        /* На мобильных устройствах снимаем жесткое ограничение, чтобы фото занимало всю ширину */
-        max-width: 100%;
-    }
     .nav-list {
-        /* ИЗМЕНЕНИЕ: Скрытие и позиционирование для JS-логики */
-        display: flex;
+        /* Стили для скрытого состояния, управляется JS-классом .open */
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -991,7 +918,7 @@ footer {
         padding: 80px 2rem 2rem;
         visibility: hidden;
         opacity: 0;
-        transform: translateX(-100%); /* Сдвиг влево */
+        transform: translateX(-100%); 
         transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s ease;
         z-index: 1005;
         gap: 0;
@@ -1004,7 +931,7 @@ footer {
         transform: translateX(0);
     }
 
-    nav ul.nav-list li a {
+    .nav-list a {
         display: block;
         width: 100%;
         text-align: center;
@@ -1012,35 +939,94 @@ footer {
         font-size: 1.5rem;
         border-bottom: 1px solid rgba(79, 195, 247, 0.2);
     }
-    nav ul.nav-list li:last-child a {
+    .nav-list li:last-child a {
         border-bottom: none;
     }
-    
-    .hero-content h1 {
-        font-size: 2.5rem;
+
+    /* Анимация Бургера (переносим сюда для видимости) */
+    .burger-icon {
+        position: absolute; top: 50%; transform: translateY(-50%);
+    }
+    .burger-icon::before { top: -8px; }
+    .burger-icon::after { top: 8px; }
+
+    /* --- СЕКЦИИ --- */
+    .vending-history .history-content {
+        flex-direction: column; 
+        align-items: center;
+    }
+    .vending-history .history-text {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    .vending-history .history-image {
+        max-width: 70%; /* Уменьшаем фото на планшетах */
     }
     
+    /* Карточки каталога */
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    /* Детальная страница товара */
     .product-detail-container {
         flex-direction: column;
         align-items: center;
     }
     .product-full-img {
-        max-width: 100%;
+        max-width: 80%;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px){
+    body, html {
+        overflow-x: hidden; /* Запрет горизонтального скролла */
+    }
+    .menu-toggle, #menuToggle { 
+        display: block !important; /* Принудительно показываем */
+        visibility: visible !important; /* Принудительно делаем видимым */
+        z-index: 9999; /* Самый высокий слой, чтобы перекрыть все */
+        opacity: 1; /* Полностью непрозрачный */
+        /* Убедитесь, что у него есть цвет, отличный от фона! */
+        color: #ff0000; /* Или любой контрастный цвет */
+    }
+}
+
+
+@media (max-width: 480px) {
     main {
         padding: 1rem;
     }
-    
+
     .hero-section {
-        height: 300px;
+        height: 250px;
     }
     .hero-content h1 {
         font-size: 2rem;
     }
+    .hero-content p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
 
+    /* Увеличиваем фото автомата на странице товара (product.html) */
+    .product-full-img {
+        max-width: 100%; /* Фото занимает всю ширину на мобильном */
+        flex: none;
+        margin-bottom: 15px;
+    }
+
+    /* Карточки каталога (один столбец) */
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Фото в секции "История вендинга" на всю ширину */
+    .vending-history .history-image {
+        max-width: 100%; 
+    }
+
+    /* Подвал (Footer) */
     .footer-container {
         grid-template-columns: 1fr;
     }

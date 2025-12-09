@@ -59,33 +59,6 @@ window.toggleNotifications = function() {
     }
 }
 
-// ==========================================================================
-// Логика Мобильного Меню (переход на классы)
-// ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menuToggle');
-    const navList = document.getElementById('navList');
-
-    if (menuToggle && navList) {
-        // 1. Открытие/Закрытие меню по клику на бургер
-        menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('open');
-            menuToggle.classList.toggle('open');
-        });
-
-        // 2. Автоматическое закрытие меню при клике на ссылку
-        navList.querySelectorAll('a').forEach(item => {
-            item.addEventListener('click', () => {
-                // Проверяем, что меню открыто
-                if (navList.classList.contains('open') && window.innerWidth <= 900) {
-                    navList.classList.remove('open');
-                    menuToggle.classList.remove('open');
-                }
-            });
-        });
-    }
-});
-
 
 /* ==========================================================================
    2. КАТАЛОГ (ТОВАРЫ + КОРЗИНА)
@@ -97,7 +70,7 @@ const initialProducts = [
         desc: "Профессиональный автомат с 2 кофемолками и 12 видами напитков." 
     },
     { 
-        id: 2, name: "Снековый TCN D720", price: 254000, 
+        id: 2, name: "Снековый автомат TCN D720", price: 254000, 
         img: "https://art-vending.ru/upload/resize_cache/iblock/46e/320_480_1/TCN%20D720-66.jpeg",
         desc: "Антивандальный корпус, вместимость до 500 единиц товара." 
     },
@@ -107,10 +80,24 @@ const initialProducts = [
         desc: "Идеальное решение 2в1: кофе из зерен и холодные снеки." 
     },
     { 
-        // ИЗМЕНЕНИЕ ПУТИ К ИЗОБРАЖЕНИЮ
-        id: 4, name: "AQUATIC WA-400N", price: 218800, 
-        img: "images/avtomat.png",
+        id: 4, name: "Водомат AQUATIC WA-400N", price: 218800, 
+        img: "images/water vending.jpg",
         desc: "Автомат очистки и продажи воды. Производительность: 2250 л/сутки. Габариты: 700х600х1850 мм. Вес: 150 кг." 
+    },
+    { 
+        id: 5, name: "Снековый автомат NECTA TANGO 7-48", price: 424935, 
+        img: "images/tango.png",
+        desc: "Представитель новой линейки снековых автоматов от итальянской группы компаний N&W Global Vending. За счет увеличенных габаритов достигается большая загрузка товаров, обеспечен лучший обзор витрины и повышенная вандалозащищенность. Предназначен для автоматической торговли продуктами питания (закуски, кондитерские изделия, бутерброды, шоколад, банки, бутылки). Рабочая температура внутри: от 8° до 15°." 
+    },
+    { 
+        id: 6, name: "Кофейный автомат Jetinno JL500", price: 600000, 
+        img: "images/Jetinno.png",
+        desc: " Продает напитки в модном формате «кофе с собой» (большой стакан 350 мл с крышкой). Предназначен для работы в местах с большой проходимостью посетителей."
+    },
+    {
+        id: 7, name: 'Снековый автомат UNICUM FOODBOX LIFT LONG', price: 550000, 
+        img: 'images/unicum.jpg',  
+        desc: 'Не уступает конкурентам по качеству, надежности и функциональности. Продажа не только продуктов или напитков, но и любого штучного товара, включая хрупкий.'
     }
 ];
 
@@ -141,7 +128,7 @@ window.addToCart = function(productId) {
 
     saveCart();
     updateCartDisplay();
-    showNotification({content: `✅ Добавлено: ${prod.name}`});
+    showNotification({content: `Добавлено: ${prod.name}`});
 }
 
 // Удаление товара из корзины
@@ -156,7 +143,7 @@ window.removeFromCart = function(productId) {
     }
     saveCart();
     updateCartDisplay();
-    showNotification({ content: `➖ Удален из корзины (ID: ${productId})` });
+    showNotification({ content: `Удален из корзины (ID: ${productId})` });
 }
 
 // Очистка корзины
@@ -165,7 +152,7 @@ window.clearCart = function() {
         cart = {};
         saveCart();
         updateCartDisplay();
-        showNotification({ content: "🗑️ Корзина очищена!" });
+        showNotification({ content: " Корзина очищена!" });
     }
 }
 
@@ -242,16 +229,6 @@ function renderProducts(products = initialProducts) {
     }
 }
 
-// Логика перетаскивания (Drag and Drop)
-function dragStart(event) {
-    event.dataTransfer.setData('productId', event.target.getAttribute('data-product-id'));
-    event.dataTransfer.effectAllowed = 'copy';
-}
-
-function dragOver(event) {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'copy';
-}
 
 function dropHandler(event) {
     event.preventDefault();
@@ -344,23 +321,23 @@ window.verifyCaptcha = () => {
     } else {
         err.style.display = "block"; err.textContent = "Неверно! Попробуйте снова.";
         input.value = ""; generateCaptcha();
-        showNotification({ content: "❌ Ошибка Капчи" });
+        showNotification({ content: " Ошибка Капчи" });
     }
 }
 
 window.checkRegistration = function() {
     let answer = prompt("Желаете пройти регистрацию на сайте? (Да/Нет)");
-    if (answer && answer.trim().toLowerCase() === "да") showNotification({ content: "✅ Добро пожаловать." });
-    else showNotification({ content: "❌ Отмена" });
+    if (answer && answer.trim().toLowerCase() === "да") showNotification({ content: " Добро пожаловать." });
+    else showNotification({ content: " Отмена" });
 }
 
 window.startAdminLogin = function() {
-    let login = prompt("Введите логин (Админ):");
+    let login = prompt("Введите логин:");
     if (login === "Админ") {
-        let pass = prompt("Введите пароль (Я главный):");
-        if (pass === "Я главный") showNotification({ content: "🔓 Здравствуйте, Администратор!" });
-        else showNotification({ content: "⛔ Неверный пароль" });
-    } else showNotification({ content: "⛔ Я вас не знаю" });
+        let pass = prompt("Введите пароль:");
+        if (pass === "Админ") showNotification({ content: "Здравствуйте, Администратор!" });
+        else showNotification({ content: " Неверный пароль" });
+    } else showNotification({ content: " Неверный пароль" });
 }
 
 // Заглушка для функции оформления заказа на cart.html
@@ -368,54 +345,7 @@ window.checkout = function() {
     alert('Функционал оформления заказа в разработке.');
 }
 
-/* ==========================================================================
-   5. ДОПОЛНИТЕЛЬНЫЙ ФУНКЦИОНАЛ (Прокрутка Фавиконки)
-   ========================================================================== */
 
-let faviconScrollInterval = null;
-const icons = ['☕', '🛒', '💰', '💡'];
-let index = 0;
-const defaultFavicon = document.querySelector("link[rel*='icon']");
-
-// Инициализация или получение элемента для фавиконки
-let dynamicFavicon = document.querySelector("link[id='dynamicFavicon']");
-if (!dynamicFavicon) {
-    dynamicFavicon = document.createElement('link');
-    dynamicFavicon.rel = 'icon';
-    dynamicFavicon.type = 'image/svg+xml';
-    dynamicFavicon.id = 'dynamicFavicon';
-    document.head.appendChild(dynamicFavicon);
-}
-
-
-function startFaviconScroll() {
-    if (faviconScrollInterval !== null) return; // Уже запущено
-
-    // Установка первой иконки сразу
-    updateFaviconIcon();
-
-    faviconScrollInterval = setInterval(() => {
-        updateFaviconIcon();
-    }, 1000); // Смена иконки каждую секунду
-}
-
-function updateFaviconIcon() {
-    const icon = icons[index];
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="90%" font-size="90" dominant-baseline="baseline" text-anchor="middle">${icon}</text></svg>`;
-    dynamicFavicon.href = 'data:image/svg+xml;base64,' + btoa(svg);
-    index = (index + 1) % icons.length;
-}
-
-function stopFaviconScroll() {
-    if (faviconScrollInterval !== null) {
-        clearInterval(faviconScrollInterval);
-        faviconScrollInterval = null;
-    }
-    // Возврат к стандартной фавиконке (если она есть)
-    if (defaultFavicon) {
-        dynamicFavicon.href = defaultFavicon.href;
-    }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
     const logoArea = document.querySelector('.logo');
@@ -427,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ==========================================================================
-   6. ФУНКЦИОНАЛ КОРЗИНЫ / ОФОРМЛЕНИЕ ЗАКАЗА
+   5. ФУНКЦИОНАЛ КОРЗИНЫ / ОФОРМЛЕНИЕ ЗАКАЗА
    ========================================================================== */
 
 // Функция оформления заказа
@@ -457,7 +387,7 @@ window.checkout = function() {
 }
 
 
-// 7. АВТОЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПОСЛЕ КЛИКА
+// 6. АВТОЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПОСЛЕ КЛИКА
 document.addEventListener('DOMContentLoaded', () => {
     // Получаем все ссылки внутри навигационного списка
     const navLinks = document.querySelectorAll('.nav-list a');
@@ -475,12 +405,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы)
+   ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы и блокировка скролла)
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    const navList = document.getElementById('navList');      // Ваш список ссылок
-    const menuToggle = document.getElementById('menuToggle'); // Ваша кнопка (Label)
-    const navLinks = document.querySelectorAll('.nav-list a'); // Ваши ссылки
+    // Используем ID, как в вашем HTML
+    const navList = document.getElementById('navList');      
+    const menuToggle = document.getElementById('menuToggle'); 
+    const navLinks = document.querySelectorAll('.nav-list a'); 
 
     // 1. Логика открытия/закрытия меню по клику на бургер
     if (menuToggle && navList) {
@@ -488,6 +419,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Переключаем класс 'open' на списке и кнопке
             navList.classList.toggle('open');
             menuToggle.classList.toggle('open'); 
+            
+            // БЛОКИРОВКА СКРОЛЛА на body
+            document.body.classList.toggle('no-scroll', navList.classList.contains('open'));
         });
     }
     
@@ -495,17 +429,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (navLinks.length > 0 && navList && menuToggle) {
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                // При клике на ссылку, принудительно убираем класс 'open'
-                // Это закроет меню, прежде чем произойдет переход на новую страницу.
+                // Закрываем меню
                 navList.classList.remove('open');
                 menuToggle.classList.remove('open');
+                
+                // СНЯТИЕ БЛОКИРОВКИ СКРОЛЛА
+                document.body.classList.remove('no-scroll');
             });
         });
     }
 
-    // Дополнительный фикс: закрываем меню при загрузке страницы (для кнопки "Назад")
+    // Дополнительный фикс: закрываем меню при загрузке страницы
     if (navList && navList.classList.contains('open')) {
          navList.classList.remove('open');
          if (menuToggle) menuToggle.classList.remove('open');
+         document.body.classList.remove('no-scroll');
     }
 });
