@@ -44,7 +44,7 @@ h2 {
     margin-bottom: 2rem;
 }
 
-/* --- HEADER / NAVIGATION --- */
+/* --- Header навигация --- */
 header {
     background: #121212;
     position: fixed;
@@ -90,7 +90,7 @@ header {
     height: 25px;
 }
 
-/* --- ГЛАВНЫЙ БЛОК / ЛОГОТИП --- */
+/* --- ГЛАВНЫЙ БЛОК и ЛОГОТИП --- */
 .logo:hover .logo-img {
     transform: rotate(360deg);
     transition: transform 1s ease-in-out;
@@ -116,7 +116,7 @@ header {
     margin-top: 10px !important;
     margin-bottom: 10px !important;
 }
-/* Кнопки в Личном Кабинете (login.html) */
+
 .login-container .control-btn {
     width: 250px; 
     max-width: 100%;
@@ -126,7 +126,6 @@ header {
     display: block; 
 }
 
-/* Корректировка отображения кнопок сортировки в catalog.html */
 .catalog-controls {
     display: flex;
     gap: 10px;
@@ -134,17 +133,19 @@ header {
     align-items: center;
     margin-bottom: 30px;
 }
+
 .catalog-controls .control-btn {
     margin-bottom: 0;
 }
+
 .catalog-controls a.control-btn {
     margin-left: auto;
 }
 
-
 .menu-check {
-        display: none;
-    }
+    display: none;
+}
+
 /* Навигация (десктоп) */
 .nav-list {
     display: flex;
@@ -222,7 +223,7 @@ header {
     min-height: 120px;
 }
 
-/* Корректировка отображения капчи на мобильных */
+/* Отображение капчи на мобильных */
 #captchaBlock div {
     display: flex;
     gap: 10px;
@@ -234,9 +235,7 @@ header {
 }
 
 
-/* --- СТИЛИЗАЦИЯ ФОРМ И ПОЛЕЙ ВВОДА (Общий вид) --- */
-
-/* Улучшение стилей для всех полей ввода и textarea */
+/* --- СТИЛИЗАЦИЯ ФОРМ И ПОЛЕЙ ВВОДА --- */
 input[type="text"], 
 input[type="email"], 
 textarea {
@@ -270,7 +269,6 @@ input:focus, textarea:focus {
     border: 1px solid #333;
 }
 
-/* Оборачивающий блок для капчи (новый класс) */
 .captcha-block-wrapper {
     background: rgba(0,0,0,0.3);
     padding: 15px;
@@ -286,9 +284,7 @@ input:focus, textarea:focus {
 }
 
 
-/* --- КОРРЕКТИРОВКА КНОПОК --- */
-
-/* --- СТИЛИ ДЛЯ КНОПОК .control-btn (ВТОРИЧНЫЕ) --- */
+/* --- СТИЛИ ДЛЯ КНОПОК ---*/
 .control-btn {
     display: inline-block;
     padding: 10px 20px;
@@ -304,11 +300,13 @@ input:focus, textarea:focus {
     white-space: nowrap; 
     margin-bottom: 0; 
 }
+
 .control-btn:hover {
     background: #444;
     border-color: var(--primary-color);
     color: var(--primary-color);
 }
+
 /* Кнопки в корзине (cart.html) */
 .cart-area .submit-btn,
 .cart-area .control-btn {
@@ -319,12 +317,13 @@ input:focus, textarea:focus {
     margin-right: auto;
     padding: 12px 20px;
 }
+
 .cart-area .submit-btn {
     margin-top: 20px !important;
     margin-bottom: 10px;
 }
 
-/* Кнопка "Отправить заявку" в contact.html */
+
 .feedback-form .submit-btn {
     width: 250px; 
     max-width: 100%;
@@ -333,32 +332,55 @@ input:focus, textarea:focus {
     display: block;
     margin-top: 15px; 
 }
+
 /* Мобильное меню (скрыто на десктопе) */
 .menu-toggle {
-    display: none;
+    display: none !important; 
+    width: 30px;
+    height: 30px;
+    position: relative;
     cursor: pointer;
-    z-index: 1006;
-    padding: 10px;
+    z-index: 1000;
+    background-color: var(--bg-card); 
+    border: 1px solid var(--primary-color);
+    border-radius: 3px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
 }
 
 .burger-icon {
     display: block;
-    width: 25px;
+    position: absolute;
+    width: 80%;
     height: 3px;
-    background-color: #fff;
-    position: relative;
-    transition: all 0.3s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    background-color: var(--primary-color); 
+    transition: all 0.3s ease-in-out;
 }
-.burger-icon::before, .burger-icon::after {
+
+.burger-icon::before,
+.burger-icon::after {
     content: '';
+    display: block;
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: #fff;
-    transition: all 0.3s ease;
+    
+    /* ИСПРАВЛЕНИЕ 3: Линии делаем ярким цветом */
+    background-color: var(--primary-color); 
+    transition: all 0.3s ease-in-out;
 }
-.burger-icon::before { top: -8px; }
-.burger-icon::after { top: 8px; }
+
+.burger-icon::before {
+    top: -8px; /* Расстояние от центральной линии */
+}
+
+.burger-icon::after {
+    top: 8px; /* Расстояние от центральной линии */
+}
 
 /* Состояние 'open' для анимации бургера (управляемый JS) */
 .menu-toggle.open .burger-icon {
@@ -823,15 +845,15 @@ footer {
 /* --- СТИЛИ ДЛЯ КОНТЕЙНЕРА СТЕКА УВЕДОМЛЕНИЙ --- */
 #notificationStack {
     position: fixed;
-    top: 80px; /* Отступ от шапки */
+    top: 80px; 
     right: 20px;
     z-index: 3000;
     display: flex;
-    flex-direction: column; /* Уведомления будут выстраиваться сверху вниз */
-    gap: 10px; /* Расстояние между уведомлениями */
-    max-height: 80vh; /* Ограничиваем высоту, чтобы не занимать весь экран */
-    overflow-y: auto; /* Добавляем прокрутку, если уведомлений слишком много */
-    width: 300px; /* Фиксированная ширина стека */
+    flex-direction: column; 
+    gap: 10px;
+    max-height: 80vh; 
+    overflow-y: auto; 
+    width: 300px; 
 }
 
 /* Убираем полосу прокрутки для более чистого вида */
@@ -843,42 +865,25 @@ footer {
     scrollbar-width: none; /* Firefox */
 }
 
-
-/* --- СТИЛИ ДЛЯ КОНТЕЙНЕРА СТЕКА УВЕДОМЛЕНИЙ --- */
-#notificationStack {
-    position: fixed;
-    top: 80px; /* Отступ от шапки */
-    right: 20px;
-    z-index: 3000;
-    display: flex;
-    flex-direction: column; /* Уведомления будут выстраиваться сверху вниз */
-    gap: 10px; /* Расстояние между уведомлениями */
-    max-height: 80vh; /* Ограничиваем высоту, чтобы не занимать весь экран */
-    overflow-y: auto; /* Добавляем прокрутку, если уведомлений слишком много */
-    width: 300px; /* Фиксированная ширина стека */
-}
-
-/* Убираем полосу прокрутки для более чистого вида */
-#notificationStack::-webkit-scrollbar {
-    display: none;
-}
-#notificationStack {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-}
-/* ==========================================================
-   --- MEDIA QUERIES (Адаптивность) ---
-   ========================================================== */
-
-/* =======================================================
-   1. ПЛАНШЕТЫ И ТЕЛЕФОНЫ (Максимальная ширина 900px)
-   ======================================================= */
 @media (max-width: 900px) { 
+    main {
+        padding: 1rem; 
+    }
+
+    .catalog-controls {
+        flex-direction: column; 
+        gap: 10px; 
+    }
+
+    .catalog-controls .control-btn {
+        width: 100%; 
+        text-align: center;
+        padding: 12px 20px;
+    }
     
-    /* Стили для контейнера бургера */
     #menuToggle, .menu-toggle {
         display: flex !important; 
-        align-items: center; /* Центрирует внутренний спан вертикально */
+        align-items: center; 
         justify-content: center;
         width: 30px; 
         height: 30px;
@@ -887,20 +892,19 @@ footer {
         cursor: pointer;
     }
 
-    
     /* Позиционирование линий */
     .burger-icon {
-        font-size: 0; /* Убираем возможный строчный текст, который вылезал */
+        font-size: 0; 
         line-height: 0;
-
         display: block;
         position: absolute; 
         width: 100%;
         height: 3px; 
         top: 50%;
-        transform: translateY(-50%);
+        transform: translate(-50%, -50%);
         transition: all 0.3s ease-in-out;
     }
+
     .burger-icon::before,
     .burger-icon::after { 
         content: '';
@@ -911,53 +915,135 @@ footer {
         background-color: inherit;
     }
 
-
-    /* Стили для мобильного меню */
+    /* --- МОБИЛЬНОЕ МЕНЮ --- */
     .nav-list {
-        /* Убедитесь, что меню скрыто по умолчанию и имеет transition */
         position: fixed;
         top: 0;
-        right: 0; /* Если меню выезжает справа */
+        right: 0; 
         bottom: 0;
-        width: 100vw; /* Занимает всю ширину окна просмотра */
-        transform: translateX(100%); /* Скрыто за правым краем */
+        width: 100vw; 
+        background: var(--bg-dark); 
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center; 
+        gap: 25px;
+        padding: 0;
+
+        transform: translateX(100%); 
         transition: transform 0.3s ease-in-out;
         z-index: 999;
-        /* ... остальные стили меню ... */
-    }
-
-    /* Когда меню открыто */
-    .nav-list.open {
-        transform: translateX(0); /* Выезжает на экран */
     }
     
-    /* Скрываем обычную навигацию */
-    .header-nav { /* Если ваша обычная навигация имеет такой класс */
-        display: none;
+    .nav-list a {
+        font-size: 1.5rem; 
+        padding: 15px 30px; 
+        width: 100%;
+        text-align: center;
     }
 
+    .nav-list .nav-login-btn {
+        background: none !important;
+        color: var(--primary-color) !important;
+        padding: 15px 30px !important;
+        border-radius: 0 !important;
+    }
+    
+    .nav-list .nav-login-btn:hover {
+        color: #8bf6ff !important;
+    }
+
+    .nav-list.open {
+        transform: translateX(0); 
+    }
+    
+    .header-nav { 
+        display: none;
+    }
+    
     .vending-history .history-content {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column; 
         gap: 20px;
     }
 
-    /* Заставляем текст и изображение занимать всю доступную ширину */
     .vending-history .history-text,
     .vending-history .history-image {
         max-width: 100%; 
     }
+    .menu-toggle.open .burger-icon {
+        transform: translate(-50%, -50%) rotate(45deg);
+        background: var(--text-light); 
+    }
+
+    .menu-toggle.open .burger-icon::before {
+        top: 0;
+        transform: rotate(90deg);
+        background: var(--text-light);
+    }
+    
+    .menu-toggle.open .burger-icon::after {
+        top: 0;
+        transform: rotate(0deg);
+        background: var(--text-light);
+    }
+    
+    .menu-toggle.open {
+        background-color: var(--primary-color); 
+        border-color: var(--bg-card);
+    }
 
 }
 
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block; 
+    }
 
-/* =======================================================
-   2. ТОЛЬКО ТЕЛЕФОНЫ (Максимальная ширина 480px)
-   ======================================================= */
+    .nav-list {
+        /* Позиционирование: фиксировано справа */
+        position: fixed;
+        top: 0;
+        right: 0; 
+        bottom: 0;
+        width: 80%; 
+        max-width: 300px;  
+        background: var(--bg-card); 
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.4); 
+        
+        flex-direction: column; 
+        align-items: flex-start;
+        padding: 70px 20px 20px; 
+        
+        transform: translateX(100%); 
+        transition: transform 0.3s ease-in-out;
+        z-index: 999;
+    }
+    
+    .nav-list li {
+        width: 100%; 
+        margin-bottom: 5px;
+    }
+    
+    .nav-list a {
+        display: block; 
+        padding: 10px 0;
+        border-bottom: 1px solid #333; 
+        color: var(--text-light); 
+        border-radius: 0;
+    }
+    
+    .nav-list li:last-child a {
+        border-bottom: none; 
+    }
+
+    .nav-list.open {
+        transform: translateX(0); 
+    }
+}
+
 @media (max-width: 480px) { 
-    /* Здесь могут быть только те стили, которые МЕНЯЮТСЯ 
-       для очень маленьких экранов (например, размер шрифта) */
     h1 {
         font-size: 2em;
     }
-    /* ВСЕ СТИЛИ БУРГЕРА НАСЛЕДУЮТСЯ ОТ БЛОКА 900px */
 }

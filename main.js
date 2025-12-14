@@ -1,6 +1,5 @@
-/* ==========================================================================
-   1. ОБЩИЙ ФУНКЦИОНАЛ (Уведомления)
-   ========================================================================== */
+// Уведомления
+ 
 // Глобальный контейнер для всех уведомлений (для настакивания)
 let notificationContainer = null;
 
@@ -18,16 +17,13 @@ function showNotification({ content }) {
     // Добавляем крестик для ручного закрытия
     note.innerHTML = `${content} <span style="margin-left:10px; cursor:pointer;" onclick="this.parentElement.remove()">✖</span>`; 
     
-    // Добавляем новое уведомление в НАЧАЛО контейнера (чтобы оно было сверху)
     notificationContainer.prepend(note);
 
-    // Уведомления не удаляются автоматически, чтобы они настакивались.
 }
 
 
-/* ==========================================================================
-   2. КАТАЛОГ (ТОВАРЫ + КОРЗИНА)
-   ========================================================================== */
+//КАТАЛОГ (ТОВАРЫ + КОРЗИНА)
+   
 const initialProducts = [
     { 
         id: 1, name: "Кофемат Jetinno JL300", price: 399000, 
@@ -121,12 +117,10 @@ window.clearCart = function() {
     }
 }
 
-// Обновление отображения корзины (для cart.html)
+// Обновление отображения корзины 
 window.updateCartDisplay = function() {
     const listElement = document.getElementById('cartItemsList');
     const totalElement = document.getElementById('totalPrice');
-
-    // Логика обновления счетчика колокольчика удалена
 
     if (!listElement || !totalElement) return;
 
@@ -225,9 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* ==========================================================================
-   3. СТРАНИЦА ТОВАРА (product.html)
-   ========================================================================== */
+// СТРАНИЦА ТОВАРА 
+   
 
 function loadProductDetail() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -255,9 +248,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* ==========================================================================
-   4. ПРОЧИЙ ФУНКЦИОНАЛ (Капча, Логин и прочее)
-   ========================================================================== */
+// ПРОЧИЙ ФУНКЦИОНАЛ (Капча, Логин и прочее)
+  
 let captchaCode = "";
 const captchaDisplay = document.getElementById('captchaText');
 if (captchaDisplay) generateCaptcha();
@@ -276,7 +268,7 @@ window.verifyCaptcha = () => {
     if (!input || !btn || !err) return; 
 
     if (input.value === captchaCode) {
-        btn.disabled = false; btn.textContent = 'Отправить заявку (Капча верна)'; 
+        btn.disabled = false; btn.textContent = 'Отправить заявку'; 
         err.style.display = "none"; 
         alert("Верно! Кнопка разблокирована.");
     } else {
@@ -311,15 +303,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* ==========================================================================
-   5. ФУНКЦИОНАЛ КОРЗИНЫ / ОФОРМЛЕНИЕ ЗАКАЗА
-   ========================================================================== */
+//ФУНКЦИОНАЛ КОРЗИНЫ / ОФОРМЛЕНИЕ ЗАКАЗА
+  
 
 // Функция оформления заказа
 window.checkout = function() {
     // Используем Object.keys(cart).length для проверки, так как cart - это объект
     if (typeof cart === 'undefined' || Object.keys(cart).length === 0) { 
-        showNotification({ content: "🛒 Корзина пуста. Добавьте товары перед оформлением." });
+        showNotification({ content: "Корзина пуста. Добавьте товары перед оформлением." });
         return;
     }
 
@@ -330,15 +321,15 @@ window.checkout = function() {
     Object.values(cart).forEach(item => {
         const itemSubtotal = item.price * item.qty; // Учитываем количество
         // Используем toLocaleString для форматирования чисел
-        orderDetails += `- ${item.name} (${item.qty} шт.) - ${itemSubtotal.toLocaleString()} ₽\n`; 
+        orderDetails += `- ${item.name} (${item.qty} шт.) - ${itemSubtotal.toLocaleString()}Руб.\n`; 
         total += itemSubtotal;
     });
-    orderDetails += `\nИтого: ${total.toLocaleString()} ₽`;
+    orderDetails += `\nИтого: ${total.toLocaleString()} Руб.`;
 
     alert(orderDetails);
     
     // Имитация отправки заказа
-    showNotification({ content: `✅ Заказ на сумму ${total.toLocaleString()} ₽ оформлен!` });
+    showNotification({ content: `Заказ на сумму ${total.toLocaleString()} Руб. оформлен!` });
     
     // Очищаем корзину после оформления заказа
     if (typeof clearCart !== 'undefined') clearCart();
@@ -347,7 +338,7 @@ window.checkout = function() {
 }
 
 
-// 6. АВТОЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПОСЛЕ КЛИКА
+// АВТОЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПОСЛЕ КЛИКА
 document.addEventListener('DOMContentLoaded', () => {
     // Получаем все ссылки внутри навигационного списка
     const navLinks = document.querySelectorAll('.nav-list a');
@@ -368,9 +359,9 @@ document.addEventListener('DOMContentLoaded', () => {
    ФИКС МОБИЛЬНОЙ НАВИГАЦИИ (Управление через классы)
    ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
-    const navList = document.getElementById('navList');      // Ваш список ссылок
-    const menuToggle = document.getElementById('menuToggle'); // Ваша кнопка (Label)
-    const navLinks = document.querySelectorAll('.nav-list a'); // Ваши ссылки
+    const navList = document.getElementById('navList');      //  список ссылок
+    const menuToggle = document.getElementById('menuToggle'); //  кнопка (Label)
+    const navLinks = document.querySelectorAll('.nav-list a'); //  ссылки
 
     // 1. Логика открытия/закрытия меню по клику на бургер
     if (menuToggle && navList) {
@@ -393,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Дополнительный фикс: закрываем меню при загрузке страницы (для кнопки "Назад")
+    // Закрываем меню при загрузке страницы (для кнопки "Назад")
     if (navList && navList.classList.contains('open')) {
          navList.classList.remove('open');
          if (menuToggle) menuToggle.classList.remove('open');
